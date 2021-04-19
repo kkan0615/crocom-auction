@@ -1,6 +1,17 @@
 <template>
   <div>
-    home
+    <div
+      class="h-48 bg-primary-300 flex items-center justify-center"
+    >
+      <div>
+        background
+      </div>
+    </div>
+    <div
+      class="w-standard ml-auto mr-auto"
+    >
+      home
+    </div>
   </div>
 </template>
 

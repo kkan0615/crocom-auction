@@ -5,8 +5,14 @@ import router from './router'
 import '@/styles/index.scss'
 /* Store */
 import { store, key } from './store'
+import { clickOutsideDirective } from '@/directive/clickOutside'
 
-createApp(App)
+const app = createApp(App)
+
+app
+  .directive('click-outside', clickOutsideDirective())
   .use(store, key)
   .use(router)
   .mount('#app')
+
+export { app }

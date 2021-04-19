@@ -1,14 +1,11 @@
 <template>
   <main
-    class="w-full"
+    class="h-full w-full"
   >
-    <header-general-layout />
-    <div
-      class="w-standard ml-auto mr-auto"
-    >
-      general layout
-      <router-view />
-    </div>
+    <header-general-layout
+      class="mb-1"
+    />
+    <router-view />
   </main>
 </template>
 
@@ -18,7 +15,9 @@ import HeaderGeneralLayout from '@/layouts/General/components/Header.vue'
 
 export default defineComponent({
   name: 'GeneralLayout',
-  components: { HeaderGeneralLayout },
+  components: {
+    HeaderGeneralLayout
+  },
   setup () {
     return
   }
