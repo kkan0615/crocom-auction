@@ -1,85 +1,64 @@
 <template>
   <header
-    class="w-full general-header relative h-32 bg-app-bar dark:bg-app-bar-dark dark:text-primary-dark-300"
+    class="w-full general-header relative sm:h-32 bg-app-bar dark:bg-app-bar-dark dark:text-primary-dark-300"
   >
     <div
-      class="content h-full ml-auto mr-auto flex flex-col"
+      class="h-full ml-auto mr-auto flex flex-col sm:w-3/5"
     >
+      <!--  top  -->
       <div
-        class="w-full flex-grow-0 flex-shrink-0"
+        class="w-full flex-grow-0 flex-shrink"
       >
         top
       </div>
+      <!--   bottom   -->
       <div
-        class="w-full flex-1 flex align-middle"
+        class="flex flex-grow flex-shrink-0"
       >
         <div
-          class="w-1/12 text-textPrimary-300 bg-primary-300 flex items-center justify-center"
+          class="w-1/12 text-textPrimary-300 bg-primary-300 flex items-center justify-center mr-2"
         >
           <div
-            class="text-center"
+            class="w-8 text-center"
           >
             <t-material-icon
-              class="text-4xl"
+              class="sm:text-4xl text-sm"
             >
               menu
             </t-material-icon>
             <div
-              class="text-sm"
+              class="sm:block hidden text-sm"
             >
               카테고리
             </div>
           </div>
         </div>
         <div
-          class="flex flex-col w-full"
+          class="flex flex-col w-11/12"
         >
           <div
-            class="w-full flex items-center flex-grow flex-shrink-0"
+            class="flex flex-grow items-center"
           >
             <div>
               입력
               <input>
             </div>
             <div
-              class="ml-auto flex items-center"
+              class="ml-auto flex items-center mr-2 sm:mr-0"
             >
-              <t-dropdown-menu>
-                <div
-                  class="text-center w-20"
-                  aria-expanded="true"
-                  aria-haspopup="true"
-                >
-                  <t-material-icon
-                    class="text-4xl"
-                  >
-                    person
-                  </t-material-icon>
-                  <div
-                    class="text-sm"
-                  >
-                    내 정보
-                  </div>
-                </div>
-              </t-dropdown-menu>
-              <div
-                class="text-center w-20"
-              >
-                <t-material-icon
-                  class="text-4xl"
-                >
-                  shopping_cart
-                </t-material-icon>
-                <div
-                  class="text-sm"
-                >
-                  장바구니
-                </div>
-              </div>
+              <notification-menu
+                class="ring-2 sm:ring-0 rounded-md mr-2 sm:mr-0"
+              />
+              <my-info
+                class="ring-2 sm:ring-0 rounded-md mr-2"
+              />
+              <basket-menu
+                class="ring-2 sm:ring-0 rounded-md"
+              />
             </div>
           </div>
           <div
-            class="flex flex-grow-0 flex-shrink"
+            class="flex text-xs sm:text-sm"
           >
             <div
               class="mr-2"
@@ -99,11 +78,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import TMaterialIcon from '@/components/tailwind/icon/Material/index.vue'
-import TDropdownMenu from '@/components/tailwind/dropMenu/Down/index.vue'
+import MyInfo from '@/layouts/General/components/MyInfo.vue'
+import BasketMenu from '@/layouts/General/components/Basket.vue'
+import NotificationMenu from '@/layouts/General/components/NotificationMenu.vue'
 
 export default defineComponent({
   name: 'HeaderGeneralLayout',
-  components: { TDropdownMenu, TMaterialIcon },
+  components: { NotificationMenu, BasketMenu, MyInfo, TMaterialIcon },
   setup () {
     return
   }

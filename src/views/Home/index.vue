@@ -8,9 +8,14 @@
       </div>
     </div>
     <div
-      class="w-standard ml-auto mr-auto"
+      class="sm:w-3/5 ml-auto mr-auto flex"
     >
       home
+      <div
+        class="ml-auto"
+      >
+        test
+      </div>
     </div>
   </div>
 </template>

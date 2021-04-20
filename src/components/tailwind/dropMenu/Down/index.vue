@@ -6,24 +6,15 @@
   >
     <button
       type="button"
-      class="inline-flex justify-center w-full rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-50 focus:outline-none"
+      class="inline-flex justify-center w-full rounded-md text-sm font-medium hover:bg-gray-50 focus:outline-none"
       :aria-expanded="open"
       aria-haspopup="true"
       @click="onClickTarget"
     >
-      <slot />
+      <slot
+        name="activator"
+      />
     </button>
-    <!--      <slot />-->
-    <!--
-      Dropdown menu, show/hide based on menu state.
-
-      Entering: "transition ease-out duration-100"
-        From: "transform opacity-0 scale-95"
-        To: "transform opacity-100 scale-100"
-      Leaving: "transition ease-in duration-75"
-        From: "transform opacity-100 scale-100"
-        To: "transform opacity-0 scale-95"
-    -->
     <div
       v-show="open"
       class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
@@ -36,42 +27,44 @@
         class="py-1"
         role="none"
       >
-        <a
-          id="menu-item-0"
-          href="#"
-          class="text-gray-700 block px-4 py-2 text-sm"
-          role="menuitem"
-          tabindex="-1"
-        >Account settings</a>
-        <a
-          id="menu-item-1"
-          href="#"
-          class="text-gray-700 block px-4 py-2 text-sm"
-          role="menuitem"
-          tabindex="-1"
-        >Support</a>
-        <a
-          id="menu-item-2"
-          href="#"
-          class="text-gray-700 block px-4 py-2 text-sm"
-          role="menuitem"
-          tabindex="-1"
-        >License</a>
-        <form
-          method="POST"
-          action="#"
-          role="none"
-        >
-          <button
-            id="menu-item-3"
-            type="submit"
-            class="text-gray-700 block w-full text-left px-4 py-2 text-sm"
+        <slot>
+          <a
+            id="menu-item-0"
+            href="#"
+            class="text-gray-700 block px-4 py-2 text-sm"
             role="menuitem"
             tabindex="-1"
+          >Account settings</a>
+          <a
+            id="menu-item-1"
+            href="#"
+            class="text-gray-700 block px-4 py-2 text-sm"
+            role="menuitem"
+            tabindex="-1"
+          >Support</a>
+          <a
+            id="menu-item-2"
+            href="#"
+            class="text-gray-700 block px-4 py-2 text-sm"
+            role="menuitem"
+            tabindex="-1"
+          >License</a>
+          <form
+            method="POST"
+            action="#"
+            role="none"
           >
-            Sign out
-          </button>
-        </form>
+            <button
+              id="menu-item-3"
+              type="submit"
+              class="text-gray-700 block w-full text-left px-4 py-2 text-sm"
+              role="menuitem"
+              tabindex="-1"
+            >
+              Sign out
+            </button>
+          </form>
+        </slot>
       </div>
     </div>
   </div>
