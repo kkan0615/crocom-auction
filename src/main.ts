@@ -6,6 +6,9 @@ import '@/styles/index.scss'
 /* Store */
 import { store, key } from './store'
 import { clickOutsideDirective } from '@/directive/clickOutside'
+import { generateDummyData } from '@/dummy'
+
+generateDummyData()
 
 const app = createApp(App)
 

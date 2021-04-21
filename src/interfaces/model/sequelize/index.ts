@@ -1,4 +1,8 @@
+import { CustomDate } from '@/interfaces/system/date'
+
 export interface SequelizeAttributes {
   id: number
-  createdAt: Date
+  createdAt: CustomDate
+  updatedAt?: CustomDate
+  deletedAt?: CustomDate
 }
