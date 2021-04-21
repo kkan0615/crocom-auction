@@ -30,6 +30,7 @@ module.exports = {
       'error',
       'always'
     ],
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     'keyword-spacing': [2, { 'before': true, 'after': true }],
     'comma-spacing': ['error', { 'before': false, 'after': true }],

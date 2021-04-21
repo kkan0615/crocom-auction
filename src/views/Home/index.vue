@@ -1,6 +1,22 @@
 <template>
   <div>
-    home
+    <div
+      class="h-48 bg-primary-300 flex items-center justify-center"
+    >
+      <div>
+        background
+      </div>
+    </div>
+    <div
+      class="sm:w-3/5 ml-auto mr-auto flex"
+    >
+      home
+      <div
+        class="ml-auto"
+      >
+        test
+      </div>
+    </div>
   </div>
 </template>
 
