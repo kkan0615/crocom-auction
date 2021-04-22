@@ -3,6 +3,7 @@
   <div
     ref="root"
     class="relative inline-block text-left"
+    @mouseenter="onFocusIn"
   >
     <button
       type="button"
@@ -22,6 +23,7 @@
       aria-orientation="vertical"
       aria-labelledby="menu-button"
       tabindex="-1"
+      @mouseleave="onFocusOut"
     >
       <div
         class="py-1"
@@ -75,7 +77,14 @@ import { defineComponent, onMounted, onBeforeUnmount, ref } from 'vue'
 
 export default defineComponent({
   name: 'TDropdownMenu',
-  setup () {
+  props: {
+    openOnHover: {
+      type: Boolean,
+      require: false,
+      default: false,
+    }
+  },
+  setup (props) {
     const open = ref(false)
     const root = ref<HTMLDivElement>(null)
 
@@ -99,8 +108,20 @@ export default defineComponent({
       open.value = !open.value
     }
 
+    const onFocusIn = () => {
+      if (props.openOnHover)
+        open.value = true
+    }
+
+    const onFocusOut = () => {
+      if (props.openOnHover)
+        open.value = false
+    }
+
     return {
       onClickTarget,
+      onFocusIn,
+      onFocusOut,
       open,
       root
     }

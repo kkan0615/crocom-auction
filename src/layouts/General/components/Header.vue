@@ -60,14 +60,7 @@
           <div
             class="flex text-xs sm:text-sm"
           >
-            <div
-              class="mr-2"
-            >
-              방금 등록
-            </div>
-            <div>
-              마감 임박
-            </div>
+            <header-bottom-menus />
           </div>
         </div>
       </div>
@@ -81,10 +74,11 @@ import TMaterialIcon from '@/components/tailwind/icon/Material/index.vue'
 import MyInfo from '@/layouts/General/components/MyInfo.vue'
 import BasketMenu from '@/layouts/General/components/Basket.vue'
 import NotificationMenu from '@/layouts/General/components/NotificationMenu.vue'
+import HeaderBottomMenus from '@/layouts/General/components/Menus.vue'
 
 export default defineComponent({
   name: 'HeaderGeneralLayout',
-  components: { NotificationMenu, BasketMenu, MyInfo, TMaterialIcon },
+  components: { HeaderBottomMenus, NotificationMenu, BasketMenu, MyInfo, TMaterialIcon },
   setup () {
     return
   }
