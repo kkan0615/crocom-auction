@@ -13,3 +13,7 @@ export interface ProductInfo extends Product {
   currentPrice: number
   User: UserInfo
 }
+
+export interface ProductForm extends Product {
+  files: Array<File>
+}

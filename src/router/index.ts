@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import GeneralLayout from '@/layouts/General/index.vue'
 import Home from '../views/Home.vue'
+import productRoutes from './modules/product'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -13,8 +14,9 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Home',
         component: () => import('@/views/Home/index.vue')
       },
-    ]
+    ],
   },
+  ...productRoutes,
   {
     path: '/home',
     name: 'HomeTest',
