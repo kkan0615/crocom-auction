@@ -10,7 +10,7 @@
       id="name"
       ref="inputRef"
       name="name"
-      type="text"
+      type="number"
       :placeholder="placeholder"
       :value="modelValue"
       class="text-sm sm:text-base relative w-full border rounded placeholder-gray-400 focus:border-indigo-400 focus:outline-none h-full px-2"
@@ -20,39 +20,37 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, nextTick, ref, useContext } from 'vue'
+import { defineComponent, ref, useContext } from 'vue'
 import TInput from '@/components/tailwind/input/Input/index.vue'
 import { inputBoxProps } from '@/components/tailwind/input/Input/data/props'
-import { inputTextProps } from '@/components/tailwind/input/Text/type'
+import { inputNumberProps } from '@/components/tailwind/input/Number/type'
 
 export default defineComponent({
-  name: 'TTextInput',
+  name: 'TNumberInput',
   components: { TInput },
   props: {
-    ...inputTextProps,
+    ...inputNumberProps,
     ...inputBoxProps,
   },
-  setup (props) {
+  setup () {
     const { emit } = useContext()
 
     const inputRef = ref<HTMLInputElement>(null)
-    const errorMessage = ref('')
 
     const onInputValue = (event: InputEvent) => {
       const target = event.target as HTMLInputElement
-      emit('update:modelValue', target.value)
+      emit('update:modelValue', Number(target.value))
     }
 
     const onClickClearableButton = () => {
       if (inputRef.value) {
         inputRef.value.focus()
       }
-      emit('update:modelValue', '')
+      emit('update:modelValue', 0)
     }
 
     return {
       inputRef,
-      errorMessage,
       onInputValue,
       onClickClearableButton,
     }

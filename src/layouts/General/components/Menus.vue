@@ -23,8 +23,8 @@ export default defineComponent({
   setup () {
     const router = useRouter()
 
-    const onClickToList = (status: ProductStatusType) => {
-      router.push({ name: 'Playground', query: { status, } })
+    const onClickToList = async (status: ProductStatusType) => {
+      await router.push({ name: 'ProductList', query: { status, } })
     }
 
     return {

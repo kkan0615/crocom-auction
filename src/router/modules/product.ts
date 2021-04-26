@@ -4,7 +4,7 @@ import GeneralLayout from '@/layouts/General/index.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: 'product',
+    path: '/product',
     name: 'ProductLayout',
     component: GeneralLayout,
     redirect: { name: 'ProductList', query: { status: 'hot' as ProductStatusType } },
@@ -12,7 +12,12 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'list',
         name: 'ProductList',
-        component: () => import('@/views/Home/index.vue')
+        component: () => import('@/views/product/List/index.vue')
+      },
+      {
+        path: 'form/new',
+        name: 'ProductFormNew',
+        component: () => import('@/views/product/Form/index.vue')
       },
     ],
   },

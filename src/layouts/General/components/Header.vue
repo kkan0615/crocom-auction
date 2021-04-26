@@ -52,7 +52,10 @@
               <my-info
                 class="ring-2 sm:ring-0 rounded-md mr-2"
               />
-              <basket-menu
+              <!--              <basket-menu-->
+              <!--                class="ring-2 sm:ring-0 rounded-md"-->
+              <!--              />-->
+              <sell-menu
                 class="ring-2 sm:ring-0 rounded-md"
               />
             </div>
@@ -72,13 +75,13 @@
 import { defineComponent } from 'vue'
 import TMaterialIcon from '@/components/tailwind/icon/Material/index.vue'
 import MyInfo from '@/layouts/General/components/MyInfo.vue'
-import BasketMenu from '@/layouts/General/components/Basket.vue'
 import NotificationMenu from '@/layouts/General/components/NotificationMenu.vue'
 import HeaderBottomMenus from '@/layouts/General/components/Menus.vue'
+import SellMenu from '@/layouts/General/components/Sell.vue'
 
 export default defineComponent({
   name: 'HeaderGeneralLayout',
-  components: { HeaderBottomMenus, NotificationMenu, BasketMenu, MyInfo, TMaterialIcon },
+  components: { SellMenu, HeaderBottomMenus, NotificationMenu, MyInfo, TMaterialIcon },
   setup () {
     return
   }
