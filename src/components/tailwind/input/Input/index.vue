@@ -20,9 +20,14 @@
     <div
       class="flex items-center ring-1"
     >
-      <slot
-        name="preAppend"
-      />
+      <!--   pre-append   -->
+      <div
+        class="flex-shrink"
+      >
+        <slot
+          name="preAppend"
+        />
+      </div>
       <div
         class="flex-grow"
         :class="{
@@ -33,9 +38,9 @@
       </div>
       <div
         v-if="clearable"
-        class="flex-shrink-0"
+        class="flex-shrink"
       >
-        <button
+        <t-button
           class="flex justify-center items-center px-2"
           @click="onClickClearableButton"
         >
@@ -44,11 +49,16 @@
           >
             clear
           </t-material-icon>
-        </button>
+        </t-button>
       </div>
-      <slot
-        name="append"
-      />
+      <!--   append   -->
+      <div
+        class="flex-shrink"
+      >
+        <slot
+          name="append"
+        />
+      </div>
     </div>
     <!--  error  -->
     <div
@@ -64,10 +74,11 @@
 import { defineComponent, ref, useContext } from 'vue'
 import TMaterialIcon from '@/components/tailwind/icon/Material/index.vue'
 import { inputBoxProps } from '@/components/tailwind/input/Input/data/props'
+import TButton from '@/components/tailwind/Button/index.vue'
 
 export default defineComponent({
   name: 'TInput',
-  components: { TMaterialIcon },
+  components: { TButton, TMaterialIcon },
   props: {
     ...inputBoxProps
   },

@@ -17,20 +17,19 @@
       class="h-full flex items-center justify-center ring-1"
     >
       <div
-        class="rounded p-2 ring-1"
+        class="rounded-full p-2 ring-1"
       >
-        <button
-          class="flex items-center justify-center"
+        <t-button
+          text
+          class="text-primary-500"
           @click="onClickAddButton"
         >
           <slot>
-            <t-material-icon
-              class="text-primary-500 "
-            >
+            <t-material-icon>
               add
             </t-material-icon>
           </slot>
-        </button>
+        </t-button>
       </div>
     </div>
   </div>
@@ -39,10 +38,11 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import TMaterialIcon from '@/components/tailwind/icon/Material/index.vue'
+import TButton from '@/components/tailwind/Button/index.vue'
 
 export default defineComponent({
   name: 'TFileDragAndDrop',
-  components: { TMaterialIcon },
+  components: { TButton, TMaterialIcon },
   props: {
     multiple: {
       type: Boolean,

@@ -1,12 +1,17 @@
 import { ComponentObjectPropsOptions  } from 'vue'
 
 export interface InputBoxProps {
+  modelValue: any
   label: string
   height: number
   clearable: boolean
 }
 
 export const inputBoxProps: ComponentObjectPropsOptions<InputBoxProps> = {
+  modelValue: {
+    required: false,
+    default: '',
+  },
   label: {
     type: String,
     required: false,

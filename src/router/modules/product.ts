@@ -19,6 +19,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'ProductFormNew',
         component: () => import('@/views/product/Form/index.vue')
       },
+      {
+        path: 'form/edit/id/:id',
+        name: 'ProductFormEdit',
+        component: () => import('@/views/product/Form/index.vue')
+      },
     ],
   },
 ]
