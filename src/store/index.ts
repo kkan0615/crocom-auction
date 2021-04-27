@@ -8,15 +8,19 @@ import { UserState } from '@/store/modules/user/state'
 import { userModule, Store as UserStore } from '@/store/modules/user'
 import { ApplicationState } from '@/store/modules/application/state'
 import { applicationModule, Store as ApplicationStore } from '@/store/modules/application'
+import { ProductState } from '@/store/modules/product/state'
+import { productModule, Store as ProductStore } from '@/store/modules/product'
 
 export interface RootState {
   user: UserState
   application: ApplicationState
+  product: ProductState
 }
 
 export type RootStore =
   UserStore<Pick<RootState, 'user'>> &
-  ApplicationStore<Pick<RootState, 'application'>>
+  ApplicationStore<Pick<RootState, 'application'>> &
+  ProductStore<Pick<RootState, 'product'>>
 
 // define injection key
 export const key: InjectionKey<Store<RootState>> = Symbol()
@@ -26,6 +30,7 @@ export const store = createStore<RootState>({
   modules: {
     user: userModule,
     application: applicationModule,
+    product: productModule,
   },
 })
 export default function useStore (): RootStore {

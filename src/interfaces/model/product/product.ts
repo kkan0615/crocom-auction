@@ -5,6 +5,9 @@ import { UserInfo } from '@/interfaces/model/user/user'
 export interface Product extends SequelizeAttributes{
   title: string
   userId: number
+  startPrice: number
+  increasePrice: number
+  content: string
   endDatetime: CustomDate
   description?: string
 }

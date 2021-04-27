@@ -1,6 +1,7 @@
 <template>
   <div
     class="w-full"
+    role=""
   >
     <!--  label  -->
     <label
@@ -19,6 +20,10 @@
     <!--  input part  -->
     <div
       class="flex items-center ring-1"
+      :class="{
+        [`border-2`]: errorStatus,
+        [`border-red-500`]: errorStatus,
+      }"
     >
       <!--   pre-append   -->
       <div
@@ -28,10 +33,11 @@
           name="preAppend"
         />
       </div>
+      <!--   input part   -->
       <div
         class="flex-grow"
         :class="{
-          [`h-${height}`]: true
+          [`h-${height}`]: true,
         }"
       >
         <slot />
@@ -62,18 +68,18 @@
     </div>
     <!--  error  -->
     <div
-      v-if="errorMessage"
+      v-if="errorStatus"
       class="text-sm sm:text-base text-red-500"
     >
-      {{ errorMessage }}
+      {{ innerErrorMessage }}
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext } from 'vue'
+import { computed, defineComponent, ref, useContext } from 'vue'
 import TMaterialIcon from '@/components/tailwind/icon/Material/index.vue'
-import { inputBoxProps } from '@/components/tailwind/input/Input/data/props'
+import { inputBoxProps } from '@/components/tailwind/input/Base/types/props'
 import TButton from '@/components/tailwind/Button/index.vue'
 
 export default defineComponent({
@@ -82,18 +88,53 @@ export default defineComponent({
   props: {
     ...inputBoxProps
   },
-  setup () {
+  setup (props) {
     const { emit } = useContext()
 
-    const errorMessage = ref('')
+    const innerErrorMessage = ref<string | boolean>(true)
+    const errorStatus = computed(() =>
+      typeof props.errorMessage === 'string'
+        || !props.errorMessage
+        || typeof innerErrorMessage.value === 'string'
+        || !innerErrorMessage.value)
+
+    const checkValidation = (): boolean | string => {
+      if (props.rules.length <= 0) {
+        innerErrorMessage.value = true
+        return innerErrorMessage.value
+      }
+
+      for (let i = 0; i < props.rules.length; i++) {
+        const rule = props.rules[i]
+        const result = rule(props.modelValue)
+
+        if (typeof result === 'string') {
+          innerErrorMessage.value = result
+          return  innerErrorMessage.value
+        } else if (!result) {
+          innerErrorMessage.value = result
+          return innerErrorMessage.value
+        }
+      }
+
+      innerErrorMessage.value = true
+      return innerErrorMessage.value
+    }
 
     const onClickClearableButton = (event: MouseEvent) => {
       emit('click:clearableButton', event)
     }
 
     return {
-      errorMessage,
+      errorStatus,
+      innerErrorMessage,
       onClickClearableButton,
+      checkValidation,
+    }
+  },
+  methods: {
+    test () {
+      console.log('test')
     }
   }
 })

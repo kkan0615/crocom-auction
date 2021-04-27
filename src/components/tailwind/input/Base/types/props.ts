@@ -1,10 +1,13 @@
 import { ComponentObjectPropsOptions  } from 'vue'
+import { InputRuleType } from '@/interfaces/system/rule'
 
 export interface InputBoxProps {
   modelValue: any
   label: string
   height: number
   clearable: boolean
+  errorMessage: string | boolean
+  rules: Array<InputRuleType>
 }
 
 export const inputBoxProps: ComponentObjectPropsOptions<InputBoxProps> = {
@@ -26,6 +29,16 @@ export const inputBoxProps: ComponentObjectPropsOptions<InputBoxProps> = {
     type: Boolean,
     required: false,
     default: false,
+  },
+  errorMessage: {
+    type: [String, Boolean],
+    required: false,
+    default: true,
+  },
+  rules: {
+    type: Array,
+    required: false,
+    default: [],
   },
 }
 

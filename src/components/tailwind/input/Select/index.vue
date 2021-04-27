@@ -30,9 +30,9 @@
 
 <script lang="ts">
 import { defineComponent, ref, useContext } from 'vue'
-import { inputBoxProps } from '@/components/tailwind/input/Input/data/props'
+import { inputBoxProps } from '@/components/tailwind/input/Base/types/props'
 import { inputSelectProps } from '@/components/tailwind/input/Select/type'
-import TInput from '@/components/tailwind/input/Input/index.vue'
+import TInput from '@/components/tailwind/input/Base/index.vue'
 
 export default defineComponent({
   name: 'TSelectInput',
