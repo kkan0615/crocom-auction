@@ -4,6 +4,7 @@ import { InputRuleType } from '@/interfaces/system/rule'
 export interface InputBoxProps {
   modelValue: any
   label: string
+  type: string
   height: number
   clearable: boolean
   errorMessage: string | boolean
@@ -19,6 +20,11 @@ export const inputBoxProps: ComponentObjectPropsOptions<InputBoxProps> = {
     type: String,
     required: false,
     default: '',
+  },
+  type: {
+    type: String,
+    required: false,
+    default: 'text',
   },
   height: {
     type: Number,
@@ -38,7 +44,7 @@ export const inputBoxProps: ComponentObjectPropsOptions<InputBoxProps> = {
   rules: {
     type: Array,
     required: false,
-    default: [],
+    default: () => [],
   },
 }
 

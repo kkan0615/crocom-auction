@@ -2,6 +2,7 @@
   <t-input
     ref="baseInputRef"
     :label="label"
+    :type="type"
     :height="height"
     :model-value="modelValue"
     :clearable="clearable"
@@ -28,7 +29,7 @@
       id="name"
       ref="inputRef"
       name="name"
-      type="text"
+      :type="type"
       :placeholder="placeholder"
       :value="modelValue"
       class="text-sm sm:text-base relative w-full border rounded placeholder-gray-400 focus:border-indigo-400 focus:outline-none h-full px-2"
@@ -50,6 +51,7 @@ import { defineComponent, nextTick, ref, useContext } from 'vue'
 import TInput from '@/components/tailwind/input/Base/index.vue'
 import { inputBoxProps } from '@/components/tailwind/input/Base/types/props'
 import { inputTextProps } from '@/components/tailwind/input/Text/type'
+import useInputMixin from '@/components/tailwind/input/Base/mixins/input'
 
 export default defineComponent({
   name: 'TTextInput',
@@ -61,16 +63,13 @@ export default defineComponent({
   setup () {
     const { emit } = useContext()
 
-    /* @TODO: Change to Mixins */
-    const inputRef = ref<HTMLInputElement>(null)
-    const baseInputRef = ref<InstanceType< typeof TInput>>(null)
+    const { inputRef, baseInputRef, checkValidate } = useInputMixin()
 
     const onInputValue = (event: InputEvent) => {
       const target = event.target as HTMLInputElement
       emit('update:modelValue', target.value)
       nextTick(() => {
-        if (baseInputRef.value)
-          baseInputRef.value.checkValidation()
+        checkValidate()
       })
     }
 
@@ -81,8 +80,7 @@ export default defineComponent({
 
       emit('update:modelValue', '')
       nextTick(() => {
-        if (baseInputRef.value)
-          baseInputRef.value.checkValidation()
+        checkValidate()
       })
     }
 
@@ -91,6 +89,7 @@ export default defineComponent({
       baseInputRef,
       onInputValue,
       onClickClearableButton,
+      checkValidate,
     }
   }
 })

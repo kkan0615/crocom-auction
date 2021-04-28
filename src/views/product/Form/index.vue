@@ -17,14 +17,23 @@
         </div>
       </div>
     </div>
-    <div>
+    <t-form
+      ref="formRef"
+    >
       <t-text-input
         v-model:model-value="productForm.title"
         clearable
         label="제목"
         :rules="productFormRules.title"
       />
-    </div>
+      <t-text-input
+        v-model:model-value="productForm.startPrice"
+        type="number"
+        clearable
+        label="시작 가격"
+        :rules="productFormRules.startPrice"
+      />
+    </t-form>
     <!--    <div>-->
     <!--      <t-number-input-->
     <!--        v-model:model-value="productForm.startPrice"-->
@@ -74,6 +83,7 @@
     >
       <t-button
         class="ml-auto"
+        @click="onClickSave"
       >
         <t-material-icon
           class="mr-2"
@@ -90,24 +100,21 @@
 import { computed, defineComponent, ref } from 'vue'
 import TTextInput from '@/components/tailwind/input/Text/index.vue'
 import TFileDragAndDrop from '@/components/tailwind/input/dragAndDrop/File/index.vue'
-import TNumberInput from '@/components/tailwind/input/Number/index.vue'
-import TDatePicker from '@/components/tailwind/input/picker/Date/index.vue'
-import dayjs from 'dayjs'
 import TButton from '@/components/tailwind/Button/index.vue'
 import TMaterialIcon from '@/components/tailwind/icon/Material/index.vue'
 import TDivider from '@/components/tailwind/Divider/index.vue'
-import TSelectInput from '@/components/tailwind/input/Select/index.vue'
 import useStore from '@/store'
 import { RuleType } from '@/interfaces/system/rule'
 import { ProductForm } from '@/interfaces/model/product/product'
+import TForm from '@/components/tailwind/Form/inedx.vue'
 
 export default defineComponent({
   name: 'FormProduct',
-  components: { TDivider, TMaterialIcon, TButton, TFileDragAndDrop, TTextInput },
+  components: { TForm, TDivider, TMaterialIcon, TButton, TFileDragAndDrop, TTextInput },
   setup () {
-    const title = ref('')
-    const endDate = ref(dayjs().format('YYYY-MM-DD'))
     const store = useStore()
+
+    const formRef = ref<InstanceType<typeof TForm> | null>(null)
     const productForm = computed(() => store.state.product.currentProductForm)
     const productFormRules: RuleType<ProductForm> = {
       title: [
@@ -118,18 +125,25 @@ export default defineComponent({
 
           return v.length >= 20 ? 'Maximum is 20' : true
         }
+      ],
+      startPrice: [
+        (v: number) => !!v || 'start price is required',
+        (v: number) => v >= 0 || 'should be over 0',
       ]
     }
 
     const onClickSave = () => {
-      console.log('onClickSave')
+      if (formRef.value) {
+        const validation = formRef.value.validate()
+        console.log(validation)
+      }
     }
 
     return {
-      title,
-      endDate,
+      formRef,
       productForm,
       productFormRules,
+      onClickSave,
     }
   }
 })

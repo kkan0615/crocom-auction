@@ -77,13 +77,24 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useContext } from 'vue'
+import {
+  computed,
+  defineComponent,
+  getCurrentInstance,
+  inject,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  useContext
+} from 'vue'
 import TMaterialIcon from '@/components/tailwind/icon/Material/index.vue'
 import { inputBoxProps } from '@/components/tailwind/input/Base/types/props'
 import TButton from '@/components/tailwind/Button/index.vue'
+import { InputRuleType } from '@/interfaces/system/rule'
+import { TFormProvideKey } from '@/components/tailwind/Form/types'
 
 export default defineComponent({
-  name: 'TInput',
+  name: 'TBaseInput',
   components: { TButton, TMaterialIcon },
   props: {
     ...inputBoxProps
@@ -91,6 +102,7 @@ export default defineComponent({
   setup (props) {
     const { emit } = useContext()
 
+    const form = inject(TFormProvideKey)
     const innerErrorMessage = ref<string | boolean>(true)
     const errorStatus = computed(() =>
       typeof props.errorMessage === 'string'
@@ -98,15 +110,29 @@ export default defineComponent({
         || typeof innerErrorMessage.value === 'string'
         || !innerErrorMessage.value)
 
+    onMounted(() => {
+      const instance = getCurrentInstance()
+      if (instance && form)
+        form.register({ checkValidation, uid: instance.uid } as InstanceType<any>)
+    })
+
+    onBeforeUnmount(() => {
+      const instance = getCurrentInstance()
+      if (instance && form)
+        form.unregister(instance.uid)
+    })
+
+
     const checkValidation = (): boolean | string => {
-      if (props.rules.length <= 0) {
+      const rules = props.rules as Array<InputRuleType>
+      if (!rules || rules.length <= 0) {
         innerErrorMessage.value = true
         return innerErrorMessage.value
       }
 
-      for (let i = 0; i < props.rules.length; i++) {
-        const rule = props.rules[i]
-        const result = rule(props.modelValue)
+      for (let i = 0; i < rules.length; i++) {
+        const rule = rules[i]
+        const result = rule(props.modelValue as string)
 
         if (typeof result === 'string') {
           innerErrorMessage.value = result
@@ -130,11 +156,6 @@ export default defineComponent({
       innerErrorMessage,
       onClickClearableButton,
       checkValidation,
-    }
-  },
-  methods: {
-    test () {
-      console.log('test')
     }
   }
 })
