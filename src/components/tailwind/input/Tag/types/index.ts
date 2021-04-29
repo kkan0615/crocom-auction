@@ -1,18 +1,19 @@
 import { ComponentObjectPropsOptions } from 'vue'
 import { inputDefaultProps, InputPropsTypeWithModelValue } from '@/components/tailwind/input/Base/types/props'
 
-export interface InputDefaultSelectProps {
+export interface InputTagProps {
   items: Array<any>
   itemText: string
   itemValue: string
   multiple: boolean
+  closable: boolean
 }
 
-export const inputSelectProps: ComponentObjectPropsOptions<InputPropsTypeWithModelValue<string | number | Array<any>> & InputDefaultSelectProps> = {
+export const inputTagProps: ComponentObjectPropsOptions<InputPropsTypeWithModelValue<Array<any>> & InputTagProps> = {
   modelValue: {
-    type: [Number, String, Array],
+    type: Array,
     required: false,
-    default: '',
+    default: [],
   },
   items: {
     type: Array,
@@ -30,6 +31,11 @@ export const inputSelectProps: ComponentObjectPropsOptions<InputPropsTypeWithMod
     default: '',
   },
   multiple: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  closable: {
     type: Boolean,
     required: false,
     default: false,

@@ -1,4 +1,5 @@
 import { ProductForm, ProductInfo } from '@/interfaces/model/product/product'
+import { Tag } from '@/interfaces/model/product/tag'
 
 export interface ProductState {
   products: Array<ProductInfo>
@@ -10,5 +11,7 @@ export interface ProductState {
  */
 export const productState: ProductState = {
   products: [],
-  currentProductForm: {} as ProductForm
+  currentProductForm: {
+    Tags: [] as Array<Tag>,
+  } as ProductForm
 }

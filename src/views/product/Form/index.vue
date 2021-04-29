@@ -33,6 +33,26 @@
         label="시작 가격"
         :rules="productFormRules.startPrice"
       />
+      <t-select-input
+        v-model:model-value="productForm.Tags"
+        label="태그 셀렉트"
+        item-value="id"
+        item-text="name"
+        :items="dummyTags"
+        multiple
+      />
+      <t-tag-input
+        v-model:model-value="productForm.Tags"
+        label="태그 셀렉트2"
+        item-value="id"
+        item-text="name"
+        :items="dummyTags"
+        multiple
+        closable
+      />
+      <!--      <t-tag-input-->
+      <!--        v-model:model-value="productForm.Tags"-->
+      <!--      />-->
     </t-form>
     <!--    <div>-->
     <!--      <t-number-input-->
@@ -107,15 +127,20 @@ import useStore from '@/store'
 import { RuleType } from '@/interfaces/system/rule'
 import { ProductForm } from '@/interfaces/model/product/product'
 import TForm from '@/components/tailwind/Form/inedx.vue'
+import TTagInput from '@/components/tailwind/input/Tag/index.vue'
+import { dummyTags } from '@/dummy/model/product/tag'
+import TSelectInput from '@/components/tailwind/input/Select/index.vue'
 
 export default defineComponent({
   name: 'FormProduct',
-  components: { TForm, TDivider, TMaterialIcon, TButton, TFileDragAndDrop, TTextInput },
+  components: { TTagInput, TSelectInput, TForm, TDivider, TMaterialIcon, TButton, TFileDragAndDrop, TTextInput },
   setup () {
     const store = useStore()
 
     const formRef = ref<InstanceType<typeof TForm> | null>(null)
+
     const productForm = computed(() => store.state.product.currentProductForm)
+
     const productFormRules: RuleType<ProductForm> = {
       title: [
         (v: string) => !!v || 'no title',
@@ -143,6 +168,7 @@ export default defineComponent({
       formRef,
       productForm,
       productFormRules,
+      dummyTags,
       onClickSave,
     }
   }

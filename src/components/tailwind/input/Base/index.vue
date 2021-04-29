@@ -1,7 +1,6 @@
 <template>
   <div
     class="w-full"
-    role=""
   >
     <!--  label  -->
     <label
@@ -11,7 +10,7 @@
         name="label"
       >
         <div
-          class="block text-lg font-medium text-gray-700 font-bold mb-1"
+          class="block text-sm font-medium text-gray-700 font-bold my-1"
         >
           {{ label }}
         </div>
@@ -19,8 +18,9 @@
     </label>
     <!--  input part  -->
     <div
-      class="flex items-center ring-1"
+      class="flex items-center border-primary-500"
       :class="{
+        ['ring-1']: !errorStatus,
         [`border-2`]: errorStatus,
         [`border-red-500`]: errorStatus,
       }"
@@ -35,10 +35,7 @@
       </div>
       <!--   input part   -->
       <div
-        class="flex-grow"
-        :class="{
-          [`h-${height}`]: true,
-        }"
+        class="flex-grow flex items-center input-box"
       >
         <slot />
       </div>
@@ -47,11 +44,10 @@
         class="flex-shrink"
       >
         <t-button
-          class="flex justify-center items-center px-2"
           @click="onClickClearableButton"
         >
           <t-material-icon
-            class="ring-1 rounded-md"
+            class="ring-1 rounded-md text-sm"
           >
             clear
           </t-material-icon>
@@ -69,7 +65,7 @@
     <!--  error  -->
     <div
       v-if="errorStatus"
-      class="text-sm sm:text-base text-red-500"
+      class="text-sm text-red-500 pl-1"
     >
       {{ innerErrorMessage }}
     </div>
@@ -160,3 +156,6 @@ export default defineComponent({
   }
 })
 </script>
+<style lang="scss" scoped>
+@import "./styles/index.scss";
+</style>

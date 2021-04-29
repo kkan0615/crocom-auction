@@ -1,6 +1,7 @@
 <template>
   <button
-    class="flex items-center justify-center px-2 py-1 focus:outline-none shadow"
+    type="button"
+    class="flex items-center justify-center px-2 py-1 focus:outline-none shadow text-sm"
     :class="buttonClasses"
   >
     <slot />

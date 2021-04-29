@@ -6,25 +6,50 @@
     :clearable="clearable"
     @click:clearableButton="onClickClearableButton"
   >
-    <select
-      class="text-sm sm:text-base relative w-full border rounded placeholder-gray-400 focus:border-indigo-400 focus:outline-none h-full px-2"
-      name="name"
-      :value="modelValue"
-      @change="onChangeValue"
+    <div
+      class="relative"
     >
-      <option
-        v-for="item in items"
-        :key="item"
-        :value="!!itemValue ? item[itemValue] : item"
+      <div
+        class="flex flex-auto flex-wrap"
+        @focusin="isSelectOpen = true"
       >
-        <slot
-          name="item"
-          :item="item"
+        <div
+          class=""
         >
-          {{ !!itemText ? item[itemText] : item }}
-        </slot>
-      </option>
-    </select>
+          {{ itemText ? modelValue[itemText] : modelValue }}
+        </div>
+        <div class="flex-1">
+          <input
+            placeholder=""
+            class="px-1  outline-none h-full w-full"
+          >
+        </div>
+      </div>
+      <div
+        v-if="isSelectOpen"
+        class="absolute shadow top-100 bg-white z-40 w-full rounded max-h-select overflow-y-auto h-32"
+      >
+        <div class="flex flex-col w-full">
+          <div
+            v-for="item in items"
+            :key="itemValue ? item[itemValue] : item"
+            class="cursor-pointer w-full border-gray-100 rounded-t hover:bg-primary-300 border-primary-500"
+            :class="{
+              [`border-l-2`]: Array.isArray(modelValue) ? modelValue.indexOf(item) >= 0 : modelValue[itemValue] === item[itemValue]
+            }"
+            @click="onClickItem(item)"
+          >
+            <div class="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative hover:border-teal-100">
+              <div class="w-full items-center flex">
+                <div class="mx-2 leading-6  ">
+                  {{ itemText ? item[itemText] : item }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </t-input>
 </template>
 
@@ -41,14 +66,33 @@ export default defineComponent({
     ...inputSelectProps,
     ...inputBoxProps
   },
-  setup () {
+  setup (props) {
     const { emit } = useContext()
 
     const inputRef = ref<HTMLInputElement>(null)
+    const isSelectOpen = ref(false)
 
     const onChangeValue = (event: InputEvent) => {
       const target = event.target as HTMLInputElement
       emit('update:modelValue', Number(target.value))
+    }
+
+    const onClickItem = (item: any) => {
+      console.log(props.modelValue)
+      if (Array.isArray(props.modelValue)) {
+        const modelValue = props.modelValue
+        const index = props.modelValue.findIndex(element => element[props.itemValue] === item[props.itemValue])
+        if (index >= 0) {
+          // eslint-disable-next-line vue/no-mutating-props
+          const newArray = modelValue.splice(index, 1)
+          emit('update:modelValue', newArray)
+        } else {
+          modelValue.push(item)
+          emit('update:modelValue', modelValue)
+        }
+      } else {
+        emit('update:modelValue', item)
+      }
     }
 
     const onClickClearableButton = () => {
@@ -59,8 +103,10 @@ export default defineComponent({
     }
 
     return {
+      isSelectOpen,
       onChangeValue,
       onClickClearableButton,
+      onClickItem,
     }
   }
 })
