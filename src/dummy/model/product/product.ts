@@ -13,10 +13,17 @@ export const generateDummyProducts = () => {
       id: i + 1,
       title: faker.commerce.productName(),
       endDatetime: dayjs(),
+      startPrice: generateRandomIntNumber(1, 200),
+      increasePrice: generateRandomIntNumber(1, 200),
+      content: faker.lorem.lines(generateRandomIntNumber(5, 10)),
       description: faker.commerce.productDescription(),
       userId: user.id,
       User: user,
       createdAt: dayjs(),
     } as ProductInfo)
   }
+}
+
+export const selectDummyProductsById = async (productId: number) => {
+  return dummyProducts.find(dummyProduct => dummyProduct.id === productId)
 }

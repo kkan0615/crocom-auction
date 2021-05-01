@@ -27,8 +27,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, useContext } from 'vue'
-import TInput from '@/components/tailwind/input/Input/index.vue'
-import { inputBoxProps } from '@/components/tailwind/input/Input/data/props'
+import TInput from '@/components/tailwind/input/Base/index.vue'
+import { inputBoxProps } from '@/components/tailwind/input/Base/types/props'
 import { inputNumberProps } from '@/components/tailwind/input/Number/type'
 import TSmallCalendarDate from '@/components/tailwind/date/calendar/Small/index.vue'
 import dayjs from 'dayjs'

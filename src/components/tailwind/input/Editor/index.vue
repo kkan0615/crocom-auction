@@ -1,7 +1,6 @@
 <template>
   <div
-    class="bg-gray-500"
-    style="height: 0.01rem"
+    :id="id"
   />
 </template>
 
@@ -9,7 +8,14 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'TDivider',
+  name: 'Prototype',
+  props: {
+    id: {
+      type: String,
+      required: false,
+      default: 'rich-editor',
+    }
+  },
   setup () {
     return
   }
