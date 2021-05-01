@@ -3,47 +3,62 @@
     class="sm:w-3/5 ml-auto mr-auto flex flex-col gap-3 mt-4"
   >
     {{ productForm }}
-    <div>
-      상품이미지
-      <div
-        class="flex items-center gap-2"
-      >
-        <div
-          class="h-32 w-1/4"
-        >
-          <t-file-drag-and-drop
-            accept="image/*"
-          />
-        </div>
-      </div>
-    </div>
     <t-form
       ref="formRef"
     >
+      <div
+        class="mb-5"
+      >
+        Product images
+        <div
+          class="flex items-center gap-2"
+        >
+          <div
+            v-for="(image, index) in productForm.Images"
+            :key="index"
+            class="h-44 w-1/4 flex flex-col"
+          >
+            <i
+              v-if="index === 0"
+              class="gg-crown mb-2 text-yellow-500"
+            />
+            <div>
+              {{ image }}
+            </div>
+          </div>
+          <!--     add button will be here     -->
+          <div
+            class="h-44 w-1/4 flex flex-col"
+          >
+            <t-file-drag-and-drop
+              accept="image/*"
+            />
+          </div>
+        </div>
+      </div>
       <t-text-input
         v-model:model-value="productForm.title"
         clearable
-        label="제목"
+        label="Product name"
         :rules="productFormRules.title"
       />
       <t-text-input
         v-model:model-value="productForm.startPrice"
         type="number"
         clearable
-        label="시작 가격"
+        label="Start Price"
         :rules="productFormRules.startPrice"
       />
-      <t-select-input
-        v-model:model-value="productForm.Tags"
-        label="태그 셀렉트"
-        item-value="id"
-        item-text="name"
-        :items="dummyTags"
-        multiple
+      <t-text-input
+        v-model:model-value="productForm.startPrice"
+        type="number"
+        clearable
+        label="Increase Price"
+        :rules="productFormRules.startPrice"
       />
       <t-tag-input
         v-model:model-value="productForm.Tags"
-        label="태그 셀렉트2"
+        label="Tags"
         item-value="id"
         item-text="name"
         :items="dummyTags"
@@ -126,14 +141,13 @@ import TDivider from '@/components/tailwind/Divider/index.vue'
 import useStore from '@/store'
 import { RuleType } from '@/interfaces/system/rule'
 import { ProductForm } from '@/interfaces/model/product/product'
-import TForm from '@/components/tailwind/Form/inedx.vue'
+import TForm from '@/components/tailwind/Form/index.vue'
 import TTagInput from '@/components/tailwind/input/Tag/index.vue'
 import { dummyTags } from '@/dummy/model/product/tag'
-import TSelectInput from '@/components/tailwind/input/Select/index.vue'
 
 export default defineComponent({
   name: 'FormProduct',
-  components: { TTagInput, TSelectInput, TForm, TDivider, TMaterialIcon, TButton, TFileDragAndDrop, TTextInput },
+  components: { TTagInput, TForm, TDivider, TMaterialIcon, TButton, TFileDragAndDrop, TTextInput },
   setup () {
     const store = useStore()
 

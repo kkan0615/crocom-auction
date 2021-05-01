@@ -18,8 +18,9 @@
     </label>
     <!--  input part  -->
     <div
-      class="flex items-center border-primary-500"
+      class="flex items-center "
       :class="{
+        ['border-primary-500']: !errorStatus,
         ['ring-1']: !errorStatus,
         [`border-2`]: errorStatus,
         [`border-red-500`]: errorStatus,
@@ -44,10 +45,11 @@
         class="flex-shrink"
       >
         <t-button
+          color="gray"
           @click="onClickClearableButton"
         >
           <t-material-icon
-            class="ring-1 rounded-md text-sm"
+            class="rounded-md text-sm"
           >
             clear
           </t-material-icon>
