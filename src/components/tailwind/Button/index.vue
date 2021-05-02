@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="flex items-center justify-center px-2 py-1 uppercase focus:outline-none leading-6 text-sm ripple"
+    class="flex justify-center px-2 py-1 uppercase focus:outline-none leading-6 text-sm ripple"
     :class="buttonClasses"
   >
     <slot />

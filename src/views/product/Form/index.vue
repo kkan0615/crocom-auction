@@ -39,23 +39,77 @@
       <t-text-input
         v-model:model-value="productForm.title"
         clearable
+        visible-count
+        :max-count="40"
         label="Product name"
         :rules="productFormRules.title"
-      />
+      >
+        <template
+          #label
+        >
+          <span
+            class="text-red-500"
+          >
+            *
+          </span>
+          Product name
+        </template>
+      </t-text-input>
       <t-text-input
         v-model:model-value="productForm.startPrice"
+        class="hide-number-input"
         type="number"
         clearable
         label="Start Price"
         :rules="productFormRules.startPrice"
-      />
+      >
+        <template
+          #label
+        >
+          <span
+            class="text-red-500"
+          >
+            *
+          </span>
+          Start Price
+        </template>
+      </t-text-input>
       <t-text-input
-        v-model:model-value="productForm.startPrice"
+        v-model:model-value="productForm.increasePrice"
         type="number"
         clearable
         label="Increase Price"
-        :rules="productFormRules.startPrice"
-      />
+        :rules="productFormRules.increasePrice"
+      >
+        <template
+          #label
+        >
+          <span
+            class="text-red-500"
+          >
+            *
+          </span>
+          Increase Price
+        </template>
+      </t-text-input>
+      <t-text-input
+        v-model:model-value="productForm.endDatetime"
+        type="datetime-local"
+        clearable
+        label="End datetime"
+        :rules="productFormRules.endDatetime"
+      >
+        <template
+          #label
+        >
+          <span
+            class="text-red-500"
+          >
+            *
+          </span>
+          End datetime
+        </template>
+      </t-text-input>
       <t-tag-input
         v-model:model-value="productForm.Tags"
         label="Tags"
@@ -65,63 +119,17 @@
         multiple
         closable
       />
-      <!--      <t-tag-input-->
-      <!--        v-model:model-value="productForm.Tags"-->
-      <!--      />-->
     </t-form>
-    <!--    <div>-->
-    <!--      <t-number-input-->
-    <!--        v-model:model-value="productForm.startPrice"-->
-    <!--        clearable-->
-    <!--        label="시작 가격"-->
-    <!--      />-->
-    <!--    </div>-->
-    <!--    <div>-->
-    <!--      <t-number-input-->
-    <!--        v-model:model-value="productForm.increasePrice"-->
-    <!--        clearable-->
-    <!--        label="인상가"-->
-    <!--      />-->
-    <!--    </div>-->
-    <!--    <div>-->
-    <!--      <t-date-picker-->
-    <!--        v-model:model-value="productForm.endDatetime"-->
-    <!--        label="종료일"-->
-    <!--      />-->
-    <!--    </div>-->
-    <!--    <div>-->
-    <!--      <t-select-input-->
-    <!--        label="test"-->
-    <!--        item-text="text"-->
-    <!--        item-value="id"-->
-    <!--        :items="[-->
-    <!--          {-->
-    <!--            id: 1,-->
-    <!--            text: 'test 1',-->
-    <!--          },-->
-    <!--          {-->
-    <!--            id: 2,-->
-    <!--            text: 'test 2',-->
-    <!--          }-->
-    <!--        ]"-->
-    <!--      />-->
-    <!--    </div>-->
-    <div>
-      tags
-    </div>
-    <div>
-      content
-    </div>
     <t-divider />
     <div
       class="flex"
     >
       <t-button
-        class="ml-auto"
+        class="ml-auto text-lg shadow-lg"
         @click="onClickSave"
       >
         <t-material-icon
-          class="mr-2"
+          class="mr-2 text-lg"
         >
           save
         </t-material-icon>
@@ -162,12 +170,19 @@ export default defineComponent({
           if (!v)
             return true
 
-          return v.length >= 20 ? 'Maximum is 20' : true
+          return v.length >= 40 ? 'Maximum is 40' : true
         }
       ],
       startPrice: [
         (v: number) => !!v || 'start price is required',
         (v: number) => v >= 0 || 'should be over 0',
+      ],
+      increasePrice: [
+        (v: number) => !!v || 'increase price is required',
+        (v: number) => v >= 0 || 'should be over 0',
+      ],
+      endDatetime: [
+        (v: string) => !!v || 'End date time is required',
       ]
     }
 

@@ -7,6 +7,8 @@ export interface InputBoxProps {
   type: string
   height: number
   clearable: boolean
+  maxCount: number
+  visibleCount: boolean
   errorMessage: string | boolean
   rules: Array<InputRuleType>
 }
@@ -32,6 +34,16 @@ export const inputBoxProps: ComponentObjectPropsOptions<InputBoxProps> = {
     default: 8,
   },
   clearable: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  maxCount: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  visibleCount: {
     type: Boolean,
     required: false,
     default: false,

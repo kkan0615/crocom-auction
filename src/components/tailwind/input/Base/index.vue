@@ -6,15 +6,16 @@
     <label
       v-if="label"
     >
-      <slot
-        name="label"
+
+      <div
+        class="block text-sm font-medium text-gray-700 font-bold my-1"
       >
-        <div
-          class="block text-sm font-medium text-gray-700 font-bold my-1"
+        <slot
+          name="label"
         >
           {{ label }}
-        </div>
-      </slot>
+        </slot>
+      </div>
     </label>
     <!--  input part  -->
     <div
@@ -39,6 +40,13 @@
         class="flex-grow flex items-center input-box"
       >
         <slot />
+      </div>
+      <!--   count   -->
+      <div
+        v-if="visibleCount"
+        class="flex-shrink mx-2"
+      >
+        {{ modelValue ? modelValue.toString().length : 0 }} / {{ maxCount }}
       </div>
       <div
         v-if="clearable"

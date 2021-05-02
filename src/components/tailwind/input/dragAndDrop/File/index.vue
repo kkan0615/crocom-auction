@@ -17,18 +17,16 @@
       class="h-full flex items-center justify-center ring-1"
     >
       <div
-        class="rounded-full p-2 ring-1"
+        class="p-2 rounded-full ring-1"
       >
         <t-button
           text
-          class="text-primary-500"
+          class="text-primary-500 rounded-full"
           @click="onClickAddButton"
         >
-          <slot>
-            <t-material-icon>
-              add
-            </t-material-icon>
-          </slot>
+          <t-material-icon>
+            add
+          </t-material-icon>
         </t-button>
       </div>
     </div>
