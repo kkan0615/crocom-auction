@@ -3,9 +3,11 @@ import { ProductMutations, ProductMutationTypes } from './mutations'
 import { ProductState } from './state'
 import { RootState } from '@/store'
 import { ProductForm, ProductInfo } from '@/interfaces/model/product/product'
+import { dummyProducts, selectDummyProductsByFilter } from '@/dummy/model/product/product'
 
 export enum ProductActionTypes {
-  SET_PRODUCTS = 'PRODUCT_SET_PRODUCTS',
+  LOAD_PRODUCT_LIST = 'PRODUCT_LOAD_PRODUCT_LIST',
+  SET_PRODUCT_LIST = 'PRODUCT_SET_PRODUCT_LIST',
   SET_CURRENT_PRODUCT_FORM = 'PRODUCT_SET_CURRENT_PRODUCT_FORM',
 }
 
@@ -17,7 +19,11 @@ export type AugmentedActionContext = {
 } & Omit<ActionContext<ProductState, RootState>, 'commit'>
 
 export interface ProductActions {
-  [ProductActionTypes.SET_PRODUCTS](
+  [ProductActionTypes.LOAD_PRODUCT_LIST](
+    { commit }: AugmentedActionContext,
+    payload: Array<ProductInfo>
+  ): void
+  [ProductActionTypes.SET_PRODUCT_LIST](
     { commit }: AugmentedActionContext,
     payload: Array<ProductInfo>
   ): void
@@ -28,8 +34,13 @@ export interface ProductActions {
 }
 
 export const productActions: ActionTree<ProductState, RootState> & ProductActions = {
-  [ProductActionTypes.SET_PRODUCTS] ({ commit }, payload) {
-    commit(ProductMutationTypes.SET_PRODUCTS, payload)
+  async [ProductActionTypes.LOAD_PRODUCT_LIST] ({ commit }) {
+    const responseProductList = await selectDummyProductsByFilter(30)
+    console.log(responseProductList)
+    commit(ProductMutationTypes.SET_PRODUCT_LIST, responseProductList)
+  },
+  [ProductActionTypes.SET_PRODUCT_LIST] ({ commit }, payload) {
+    commit(ProductMutationTypes.SET_PRODUCT_LIST, payload)
   },
   [ProductActionTypes.SET_CURRENT_PRODUCT_FORM] ({ commit }, payload) {
     commit(ProductMutationTypes.SET_CURRENT_PRODUCT_FORM, payload)

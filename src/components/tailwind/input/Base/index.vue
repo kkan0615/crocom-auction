@@ -19,10 +19,10 @@
     </label>
     <!--  input part  -->
     <div
-      class="flex items-center "
+      class="flex items-center input-box"
       :class="{
         ['border-primary-500']: !errorStatus,
-        ['ring-1']: !errorStatus,
+        ['ring-1']: !noRing && !errorStatus,
         [`border-2`]: errorStatus,
         [`border-red-500`]: errorStatus,
       }"
@@ -37,7 +37,7 @@
       </div>
       <!--   input part   -->
       <div
-        class="flex-grow flex items-center input-box"
+        class="flex-grow flex items-center"
       >
         <slot />
       </div>
@@ -50,14 +50,16 @@
       </div>
       <div
         v-if="clearable"
-        class="flex-shrink"
+        class="flex-shrink h-full"
       >
         <t-button
-          color="gray"
+          class="h-full"
+          color="white"
+          text-color="black"
           @click="onClickClearableButton"
         >
           <t-material-icon
-            class="rounded-md text-sm"
+            class="rounded-md text-md"
           >
             clear
           </t-material-icon>
@@ -138,7 +140,8 @@ export default defineComponent({
 
       for (let i = 0; i < rules.length; i++) {
         const rule = rules[i]
-        const result = rule(props.modelValue as string)
+        const modelValue = props.modelValue
+        const result = rule(modelValue)
 
         if (typeof result === 'string') {
           innerErrorMessage.value = result

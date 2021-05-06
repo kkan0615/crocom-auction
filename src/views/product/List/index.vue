@@ -2,31 +2,73 @@
   <div
     class="sm:w-3/5 ml-auto mr-auto flex mt-4"
   >
-    <t-flex-grid>
+    <div
+      class="flex"
+    >
       <div
-        class="w-3/12 mr-2 ring"
+        class="w-2/12 mr-2 ring"
       >
         <navigator-list-product />
       </div>
       <div
-        class="w-9/12 ml-2 ring"
+        class="w-10/12 ml-2"
       >
-        content
+        <t-grid
+          :cols="4"
+          :gap="4"
+        >
+          <product-detail-product
+            v-for="product in productList"
+            :key="product.id"
+            :product="product"
+          />
+        </t-grid>
       </div>
-    </t-flex-grid>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import TFlexGrid from '@/components/tailwind/grid/Flex/index.vue'
+import { computed, defineComponent, onMounted } from 'vue'
+import useStore from '@/store'
+import { ProductActionTypes } from '@/store/modules/product/actions'
 import NavigatorListProduct from '@/views/product/List/components/Navigator.vue'
+import TGrid from '@/components/tailwind/grid/Default/index.vue'
+import ProductDetailProduct from '@/views/product/Detail/components/Product.vue'
+import { ProductListInfo } from '@/interfaces/model/product/product'
+import { generateRandomIntNumber } from '@/utils/random'
 
 export default defineComponent({
   name: 'ListProduct',
-  components: { NavigatorListProduct, TFlexGrid },
+  components: { ProductDetailProduct, TGrid, NavigatorListProduct, },
   setup () {
-    return
+    const store = useStore()
+
+    const productList: Array<ProductListInfo> = computed(() => {
+      return store.state.product.productList.map(product => {
+        const newProduct: ProductListInfo = {
+          ...product
+        } as ProductListInfo
+
+        newProduct.hot = generateRandomIntNumber(0, 1) === 1
+        return newProduct
+      }).sort((a, b) => {
+        if (a.hot && b.hot)
+          return 0
+        else if (a.hot)
+          return 1
+        else if (b.hot)
+          return -1
+      })
+    })
+
+    onMounted(async () => {
+      store.dispatch(ProductActionTypes.LOAD_PRODUCT_LIST)
+    })
+
+    return {
+      productList
+    }
   }
 })
 </script>

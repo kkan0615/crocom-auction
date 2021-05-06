@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="flex justify-center px-2 py-1 uppercase focus:outline-none leading-6 text-sm ripple"
+    class="flex justify-center uppercase focus:outline-none leading-6 text-sm ripple"
     :class="buttonClasses"
   >
     <slot />
@@ -29,6 +29,11 @@ export default defineComponent({
       required: false,
       default: false,
     },
+    icon: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     shadow: {
       type: Boolean,
       required: false,
@@ -52,7 +57,9 @@ export default defineComponent({
         [`text-${props.textColor}-500`]: !props.text,
         ['w-full']: props.block,
         ['rounded-md']: props.rounded,
-        ['shadow']: props.shadow
+        ['shadow']: props.shadow,
+        ['px-2']: !props.icon,
+        ['py-1']: !props.icon,
       }
     })
     return {

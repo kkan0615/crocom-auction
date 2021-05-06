@@ -27,7 +27,7 @@
       />
     </template>
     <div
-      class="relative"
+      class="relative w-full"
       @focusin="isSelectListOpen = true"
     >
       <div
@@ -36,13 +36,14 @@
         <t-chip
           v-for="(chip, index) in modelValue"
           :key="itemValue ? chip[itemValue] : index"
+          class="flex-shrink"
           :closable="closable"
           @click:close="onClickCloseChipButton(chip)"
         >
           {{ itemText ? chip[itemText] : chip }}
         </t-chip>
         <!--    Search input    -->
-        <div class="flex-1">
+        <div class="flex-grow">
           <input
             placeholder=""
             :value="innerSearch"

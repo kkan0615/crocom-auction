@@ -9,32 +9,62 @@
       <div
         class="mb-5"
       >
-        Product images
         <div
-          class="flex items-center gap-2"
+          class="mb-2"
+        >
+          Product images
+        </div>
+        <t-base-input
+          no-ring
+          :model-value="productForm.Images"
+          :rules="productFormRules.Images"
         >
           <div
-            v-for="(image, index) in productForm.Images"
-            :key="index"
-            class="h-44 w-1/4 flex flex-col"
+            class="p-4 w-full"
           >
-            <i
-              v-if="index === 0"
-              class="gg-crown mb-2 text-yellow-500"
-            />
-            <div>
-              {{ image }}
-            </div>
+            <t-grid
+              :cols="4"
+              :gap="4"
+            >
+              <div
+                v-for="(image, index) in productForm.Images"
+                :key="index"
+                class="h-44 relative"
+              >
+                <div
+                  class="absolute rotated-crown"
+                >
+                  <i
+                    v-if="index === 0"
+                    class="gg-crown mb-2 text-yellow-500"
+                  />
+                </div>
+                <div
+                  class="h-full w-full text-center ring-1 flex justify-center p-2"
+                  :class="{
+                    ['ring-yellow-500']: index === 0
+                  }"
+                >
+                  <img
+                    v-if="image.file.href"
+                    style="max-width: 100%; max-height: 100%; object-fit: cover;"
+                    :src="image.file.href"
+                    :alt="image.file.name"
+                  >
+                </div>
+              </div>
+              <!--     add button will be here     -->
+              <div
+                class="h-44 w-full"
+              >
+                <t-file-drag-and-drop
+                  accept="image/*"
+                  @uploaded="onUploadedImage"
+                />
+              </div>
+            </t-grid>
           </div>
-          <!--     add button will be here     -->
-          <div
-            class="h-44 w-1/4 flex flex-col"
-          >
-            <t-file-drag-and-drop
-              accept="image/*"
-            />
-          </div>
-        </div>
+        </t-base-input>
       </div>
       <t-text-input
         v-model:model-value="productForm.title"
@@ -125,7 +155,7 @@
       class="flex"
     >
       <t-button
-        class="ml-auto text-lg shadow-lg"
+        class="ml-auto shadow-lg"
         @click="onClickSave"
       >
         <t-material-icon
@@ -152,10 +182,14 @@ import { ProductForm } from '@/interfaces/model/product/product'
 import TForm from '@/components/tailwind/Form/index.vue'
 import TTagInput from '@/components/tailwind/input/Tag/index.vue'
 import { dummyTags } from '@/dummy/model/product/tag'
+import { CustomFile } from '@/interfaces/system/file'
+import { ProductImage } from '@/interfaces/model/product/image'
+import TGrid from '@/components/tailwind/grid/Default/index.vue'
+import TBaseInput from '@/components/tailwind/input/Base/index.vue'
 
 export default defineComponent({
   name: 'FormProduct',
-  components: { TTagInput, TForm, TDivider, TMaterialIcon, TButton, TFileDragAndDrop, TTextInput },
+  components: { TBaseInput, TGrid, TTagInput, TForm, TDivider, TMaterialIcon, TButton, TFileDragAndDrop, TTextInput },
   setup () {
     const store = useStore()
 
@@ -174,23 +208,40 @@ export default defineComponent({
         }
       ],
       startPrice: [
-        (v: number) => !!v || 'start price is required',
-        (v: number) => v >= 0 || 'should be over 0',
+        (v: string) => !!v || 'start price is required',
+        (v: string) => Number(v) >= 0 || 'should be over 0',
       ],
       increasePrice: [
-        (v: number) => !!v || 'increase price is required',
-        (v: number) => v >= 0 || 'should be over 0',
+        (v: string) => !!v || 'increase price is required',
+        (v: string) => Number(v) >= 0 || 'should be over 0',
       ],
       endDatetime: [
         (v: string) => !!v || 'End date time is required',
+      ],
+      Images: [
+        (v: Array<ProductImage>) => {
+          if (!v || v.length === 0)
+            return 'At least one image is required'
+
+          return true
+        }
       ]
     }
 
     const onClickSave = () => {
       if (formRef.value) {
-        const validation = formRef.value.validate()
-        console.log(validation)
+        formRef.value.validate()
       }
+    }
+
+    const onUploadedImage = (file: CustomFile) => {
+      if (!productForm.value.Images)
+        productForm.value.Images = []
+
+      productForm.value.Images.push({
+        isRepresentation: productForm.value.Images.length === 0,
+        file,
+      } as ProductImage)
     }
 
     return {
@@ -199,7 +250,11 @@ export default defineComponent({
       productFormRules,
       dummyTags,
       onClickSave,
+      onUploadedImage,
     }
   }
 })
 </script>
+<style lang="scss" scoped>
+@import "./index.scss";
+</style>

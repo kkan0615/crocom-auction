@@ -21,6 +21,10 @@ export interface ProductInfo extends Product {
   Tags: Array<Tag>
 }
 
+export interface ProductListInfo extends ProductInfo {
+  hot: boolean
+}
+
 export interface ProductForm extends Product {
   Images: Array<ProductImage>
   Tags: Array<Tag>
