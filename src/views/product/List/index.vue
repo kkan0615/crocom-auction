@@ -6,12 +6,12 @@
       class="flex"
     >
       <div
-        class="w-2/12 mr-2 ring"
+        class="w-2/12 h-full mr-2 ring"
       >
         <navigator-list-product />
       </div>
       <div
-        class="w-10/12 ml-2"
+        class="w-10/12 h-full ml-2"
       >
         <t-grid
           :cols="4"
@@ -23,6 +23,7 @@
             :product="product"
           />
         </t-grid>
+        <list-product-pagination />
       </div>
     </div>
   </div>
@@ -37,10 +38,11 @@ import TGrid from '@/components/tailwind/grid/Default/index.vue'
 import ProductDetailProduct from '@/views/product/Detail/components/Product.vue'
 import { ProductListInfo } from '@/interfaces/model/product/product'
 import { generateRandomIntNumber } from '@/utils/random'
+import ListProductPagination from '@/views/product/List/components/Pagination.vue'
 
 export default defineComponent({
   name: 'ListProduct',
-  components: { ProductDetailProduct, TGrid, NavigatorListProduct, },
+  components: { ListProductPagination, ProductDetailProduct, TGrid, NavigatorListProduct, },
   setup () {
     const store = useStore()
 

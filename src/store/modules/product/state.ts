@@ -4,14 +4,16 @@ import { ProductImage } from '@/interfaces/model/product/image'
 
 export interface ProductState {
   productList: Array<ProductInfo>
+  productListCurrentPage: number
   currentProductForm: ProductForm
 }
 
 /**
- * navigator
+ * productState
  */
 export const productState: ProductState = {
   productList: [],
+  productListCurrentPage: 1, // default is 1
   currentProductForm: {
     Tags: [] as Array<Tag>,
     Images: [] as Array<ProductImage>,
