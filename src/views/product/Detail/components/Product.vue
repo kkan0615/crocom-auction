@@ -1,6 +1,7 @@
 <template>
   <t-card
-    class="hover:shadow-lg relative"
+    class="hover:shadow-md relative flex flex-col"
+    @click="moveToDetail"
   >
     <product-detail-dead-line
       v-if="deadline"
@@ -12,7 +13,7 @@
       >
     </t-card-image>
     <t-card-title
-      class="py-1"
+      class="py-1 mt-auto"
     >
       {{ product.title }}
     </t-card-title>
@@ -39,6 +40,7 @@ import TCardImage from '@/components/tailwind/Card/components/Image.vue'
 import TCardContent from '@/components/tailwind/Card/components/Content.vue'
 import dayjs from 'dayjs'
 import ProductDetailDeadLine from '@/views/product/Detail/components/DeadlineMark.vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'ProductDetailProduct',
@@ -53,6 +55,8 @@ export default defineComponent({
     }
   },
   setup (props) {
+    const router = useRouter()
+
     const product = props.product as ProductListInfo
     // let countDown: number | null = null
 
@@ -75,6 +79,9 @@ export default defineComponent({
 
     const deadline = computed(() => dayjs(product.endDatetime).diff(dayjs(), 'hours') < 12)
 
+    const moveToDetail = async () => {
+      await router.push({ name: 'ProductDetail', params: { id: product.id } })
+    }
 
     // onMounted(() => {
     //   // initCountdown()
@@ -101,6 +108,7 @@ export default defineComponent({
       image,
       endDatetime,
       deadline,
+      moveToDetail,
     }
   }
 })

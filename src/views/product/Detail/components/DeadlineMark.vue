@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute hot-mark bg-red-500 text-white flex justify-center items-center p-1"
+    class="absolute left-2 bg-red-500 text-white flex justify-center items-center p-1"
   >
     <t-material-icon>
       timer
