@@ -3,11 +3,12 @@ import { ProductMutations, ProductMutationTypes } from './mutations'
 import { ProductState } from './state'
 import { RootState } from '@/store'
 import { ProductForm, ProductInfo } from '@/interfaces/model/product/product'
-import { dummyProducts, selectDummyProductsByFilter } from '@/dummy/model/product/product'
+import { selectDummyProductsByFilter } from '@/dummy/model/product/product'
 
 export enum ProductActionTypes {
   LOAD_PRODUCT_LIST = 'PRODUCT_LOAD_PRODUCT_LIST',
   SET_PRODUCT_LIST = 'PRODUCT_SET_PRODUCT_LIST',
+  SET_PRODUCT_LIST_CURRENT_PAGE = 'PRODUCT_SET_PRODUCT_LIST_CURRENT_PAGE',
   SET_CURRENT_PRODUCT_FORM = 'PRODUCT_SET_CURRENT_PRODUCT_FORM',
 }
 
@@ -27,6 +28,10 @@ export interface ProductActions {
     { commit }: AugmentedActionContext,
     payload: Array<ProductInfo>
   ): void
+  [ProductActionTypes.SET_PRODUCT_LIST_CURRENT_PAGE](
+    { commit }: AugmentedActionContext,
+    payload: number
+  ): void
   [ProductActionTypes.SET_CURRENT_PRODUCT_FORM](
     { commit }: AugmentedActionContext,
     payload: ProductForm
@@ -41,6 +46,9 @@ export const productActions: ActionTree<ProductState, RootState> & ProductAction
   },
   [ProductActionTypes.SET_PRODUCT_LIST] ({ commit }, payload) {
     commit(ProductMutationTypes.SET_PRODUCT_LIST, payload)
+  },
+  [ProductActionTypes.SET_PRODUCT_LIST_CURRENT_PAGE] ({ commit }, payload) {
+    commit(ProductMutationTypes.SET_PRODUCT_LIST_CURRENT_PAGE, payload)
   },
   [ProductActionTypes.SET_CURRENT_PRODUCT_FORM] ({ commit }, payload) {
     commit(ProductMutationTypes.SET_CURRENT_PRODUCT_FORM, payload)

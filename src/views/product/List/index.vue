@@ -23,7 +23,9 @@
             :product="product"
           />
         </t-grid>
-        <list-product-pagination />
+        <list-product-pagination
+          class="mt-2"
+        />
       </div>
     </div>
   </div>
@@ -46,7 +48,7 @@ export default defineComponent({
   setup () {
     const store = useStore()
 
-    const productList: Array<ProductListInfo> = computed(() => {
+    const productList = computed(() => {
       return store.state.product.productList.map(product => {
         const newProduct: ProductListInfo = {
           ...product
@@ -54,13 +56,15 @@ export default defineComponent({
 
         newProduct.hot = generateRandomIntNumber(0, 1) === 1
         return newProduct
-      }).sort((a, b) => {
+      }).sort((a: ProductListInfo, b: ProductListInfo) => {
         if (a.hot && b.hot)
           return 0
         else if (a.hot)
           return 1
         else if (b.hot)
           return -1
+
+        return 0
       })
     })
 

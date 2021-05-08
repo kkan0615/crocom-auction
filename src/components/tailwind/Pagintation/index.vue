@@ -7,7 +7,13 @@
       Previous
     </t-pagination-page>
     <t-pagination-page
-      v-for="i in count"
+      v-if="startIndex !== 1"
+      @click="onClickPage(1)"
+    >
+      1...
+    </t-pagination-page>
+    <t-pagination-page
+      v-for="i in pages"
       :key="i"
       :class="{
         [`bg-${color}-500`]: i === modelValue,
@@ -16,6 +22,12 @@
       @click="onClickPage(i)"
     >
       {{ i }}
+    </t-pagination-page>
+    <t-pagination-page
+      v-if="endIndex !== maxCount"
+      @click="onClickPage(maxCount)"
+    >
+      ...{{ maxCount }}
     </t-pagination-page>
     <t-pagination-page
       class="rounded-r border-r"
@@ -27,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext } from 'vue'
+import { computed, defineComponent, useContext } from 'vue'
 import TPaginationPage from '@/components/tailwind/Pagintation/components/Page.vue'
 
 export default defineComponent({
@@ -39,7 +51,7 @@ export default defineComponent({
       required: false,
       default: 1,
     },
-    count: {
+    maxCount: {
       type: Number,
       required: false,
       default: 5,
@@ -47,7 +59,7 @@ export default defineComponent({
     visibleCount: {
       type: Number,
       required: false,
-      default: 1,
+      default: 5,
     },
     color: {
       type: String,
@@ -60,22 +72,53 @@ export default defineComponent({
       default: 'textPrimary',
     }
   },
-  setup () {
+  setup (props) {
     const { emit } = useContext()
+
+    const pages = computed(() => {
+      const result: Array<number> = []
+      console.log(props.modelValue - props.visibleCount, (parseInt((props.modelValue / props.visibleCount).toString())))
+      console.log(startIndex.value, endIndex.value)
+      for (let i = startIndex.value; i <= endIndex.value; i ++) {
+        result.push(i)
+      }
+
+      return result
+    })
+
+    const startIndex = computed(() => props.modelValue - props.visibleCount >= 0
+      ? props.maxCount - props.modelValue > props.visibleCount
+        ? props.modelValue - parseInt(((props.visibleCount / 2)).toString())
+        : props.maxCount - props.visibleCount
+      : 1)
+    const endIndex = computed(() => props.modelValue + props.visibleCount < props.maxCount
+      ? props.modelValue - props.visibleCount >= 0
+        ? props.modelValue + parseInt(((props.visibleCount / 2)).toString())
+        : props.visibleCount
+      : props.maxCount)
 
     const onClickPage = (pageNum: number) => {
       emit('click:page', pageNum)
     }
 
     const onClickPrev = () => {
-      emit('click:previous')
+      if (props.modelValue - 1 <= 0)
+        emit('click:previous', 1)
+      else
+        emit('click:previous', props.modelValue - 1)
     }
 
     const onClickNext = () => {
-      emit('click:next')
+      if (props.modelValue + 1 >= props.maxCount)
+        emit('click:next', props.maxCount)
+      else
+        emit('click:next', props.modelValue + 1)
     }
 
     return {
+      pages,
+      startIndex,
+      endIndex,
       onClickPage,
       onClickPrev,
       onClickNext,
