@@ -24,8 +24,10 @@
       >
         $ {{ product.currentPrice || product.startPrice }}
       </div>
-      <div>
-        {{ endDatetime }}
+      <div
+        class="text-red-500"
+      >
+        {{ leftTime }}
       </div>
     </t-card-content>
   </t-card>
@@ -77,7 +79,21 @@ export default defineComponent({
       return found.file
     })
 
-    const endDatetime = computed(() => dayjs(product.endDatetime).format('llll'))
+    const leftTime = computed(() => {
+      const days =  dayjs(product.endDatetime).diff(dayjs(), 'days')
+      const hours = dayjs(product.endDatetime).diff(dayjs(), 'hours')
+      const minutes = dayjs(product.endDatetime).diff(dayjs(), 'minutes')
+
+      if (days > 0) {
+        return `${days} days left`
+      } else if (hours > 0) {
+        return `${hours} hours left`
+      } else if (minutes > 0) {
+        `${minutes} mins left`
+      }
+
+      return ''
+    })
 
     const deadline = computed(() => dayjs(product.endDatetime).diff(dayjs(), 'hours') < 12)
 
@@ -110,7 +126,7 @@ export default defineComponent({
 
     return {
       image,
-      endDatetime,
+      leftTime,
       deadline,
       moveToDetail,
     }

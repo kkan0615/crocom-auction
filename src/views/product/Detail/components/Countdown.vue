@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    class="sm:w-3/5 ml-auto mr-auto flex mt-4"
+  >
     Countdown
   </div>
 </template>

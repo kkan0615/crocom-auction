@@ -50,7 +50,7 @@ export const generateDummyProducts = () => {
   } // for loop ends
 }
 
-export const selectDummyProductsById = async (productId: number) => {
+export const selectOneDummyProductsById = async (productId: number) => {
   return dummyProducts.find(dummyProduct => dummyProduct.id === productId)
 }
 

@@ -6,6 +6,7 @@ export interface ProductState {
   productList: Array<ProductInfo>
   productListCurrentPage: number
   currentProductForm: ProductForm
+  currentProduct: ProductInfo
 }
 
 /**
@@ -17,5 +18,6 @@ export const productState: ProductState = {
   currentProductForm: {
     Tags: [] as Array<Tag>,
     Images: [] as Array<ProductImage>,
-  } as ProductForm
+  } as ProductForm,
+  currentProduct: {} as ProductInfo,
 }
