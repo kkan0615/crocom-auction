@@ -3,7 +3,7 @@
     class="hover:shadow-md relative flex flex-col cursor-pointer"
     @click="moveToDetail"
   >
-    <product-detail-dead-line
+    <product-list-dead-line
       v-if="deadline"
     />
     <t-card-image>
@@ -40,13 +40,13 @@ import { CustomFile } from '@/interfaces/system/file'
 import TCardImage from '@/components/tailwind/Card/components/Image.vue'
 import TCardContent from '@/components/tailwind/Card/components/Content.vue'
 import dayjs from 'dayjs'
-import ProductDetailDeadLine from '@/views/product/Detail/components/DeadlineMark.vue'
 import { useRouter } from 'vue-router'
 import TImage from '@/components/tailwind/Image/index.vue'
+import ProductListDeadLine from '@/views/product/List/components/DeadlineMark.vue'
 
 export default defineComponent({
-  name: 'ProductDetailProduct',
-  components: { TImage, ProductDetailDeadLine, TCardContent, TCardImage, TCardTitle, TCard },
+  name: 'ProductListProduct',
+  components: { ProductListDeadLine, TImage, TCardContent, TCardImage, TCardTitle, TCard },
   props: {
     product: {
       type: Object,

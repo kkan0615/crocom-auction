@@ -77,8 +77,6 @@ export default defineComponent({
 
     const pages = computed(() => {
       const result: Array<number> = []
-      console.log(props.modelValue - props.visibleCount, (parseInt((props.modelValue / props.visibleCount).toString())))
-      console.log(startIndex.value, endIndex.value)
       for (let i = startIndex.value; i <= endIndex.value; i ++) {
         result.push(i)
       }

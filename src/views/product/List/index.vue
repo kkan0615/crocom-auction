@@ -17,7 +17,7 @@
           :cols="4"
           :gap="4"
         >
-          <product-detail-product
+          <product-list-product
             v-for="product in productList"
             :key="product.id"
             :product="product"
@@ -37,14 +37,14 @@ import useStore from '@/store'
 import { ProductActionTypes } from '@/store/modules/product/actions'
 import NavigatorListProduct from '@/views/product/List/components/Navigator.vue'
 import TGrid from '@/components/tailwind/grid/Default/index.vue'
-import ProductDetailProduct from '@/views/product/Detail/components/Product.vue'
 import { ProductListInfo } from '@/interfaces/model/product/product'
 import { generateRandomIntNumber } from '@/utils/random'
 import ListProductPagination from '@/views/product/List/components/Pagination.vue'
+import ProductListProduct from '@/views/product/List/components/Product.vue'
 
 export default defineComponent({
   name: 'ListProduct',
-  components: { ListProductPagination, ProductDetailProduct, TGrid, NavigatorListProduct, },
+  components: { ProductListProduct, ListProductPagination, TGrid, NavigatorListProduct, },
   setup () {
     const store = useStore()
 

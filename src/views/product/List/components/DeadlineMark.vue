@@ -13,7 +13,7 @@ import { defineComponent } from 'vue'
 import TMaterialIcon from '@/components/tailwind/icon/Material/index.vue'
 
 export default defineComponent({
-  name: 'ProductDetailDeadLine',
+  name: 'ProductListDeadLine',
   components: { TMaterialIcon },
   setup () {
     return
