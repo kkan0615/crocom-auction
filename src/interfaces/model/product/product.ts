@@ -19,6 +19,7 @@ export interface ProductInfo extends Product {
   User: UserInfo
   Images: Array<ProductImage>
   Tags: Array<Tag>
+  rating?: number
 }
 
 export interface ProductListInfo extends ProductInfo {

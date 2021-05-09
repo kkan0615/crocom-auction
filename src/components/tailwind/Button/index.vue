@@ -1,8 +1,10 @@
 <template>
   <button
     type="button"
-    class="flex justify-center uppercase focus:outline-none leading-6 text-sm ripple"
+    class="flex justify-center uppercase focus:outline-none leading-6 text-sm"
     :class="buttonClasses"
+    :disabled="disabled"
+    :readonly="readonly"
   >
     <slot />
   </button>
@@ -49,6 +51,16 @@ export default defineComponent({
       required: false,
       default: 'textPrimary',
     },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    readonly: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   setup (props) {
     const buttonClasses = computed(() => {
@@ -60,6 +72,8 @@ export default defineComponent({
         ['shadow']: props.shadow,
         ['px-2']: !props.icon,
         ['py-1']: !props.icon,
+        ['ripple']: !props.disabled,
+        ['opacity-50']: props.disabled
       }
     })
     return {

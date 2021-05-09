@@ -27,11 +27,13 @@ export const generateDummyProducts = () => {
       createdAt: dayjs()
     } as ProductImage
 
+    const startPrice = generateRandomIntNumber(1, 200)
+
     dummyProducts.push({
       id: i + 1,
       title: faker.commerce.productName(),
       endDatetime: dayjs().add(generateRandomIntNumber(1, 120), 'hours'),
-      startPrice: generateRandomIntNumber(1, 200),
+      startPrice,
       increasePrice: generateRandomIntNumber(1, 200),
       content: faker.lorem.lines(generateRandomIntNumber(5, 10)),
       description: faker.commerce.productDescription(),
@@ -44,6 +46,7 @@ export const generateDummyProducts = () => {
         }
       ].concat(dummyProductImages.filter(dummyProductImage => dummyProductImage.productId === i + 1)),
       createdAt: dayjs(),
+      currentPrice:startPrice,
     } as ProductInfo)
 
     dummyProductImages.push(represntationImg)

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="sm:w-3/5 w-full ml-auto mr-auto sm:flex mt-4"
+    class="sm:w-3/5 w-full ml-auto mr-auto sm:flex mt-4 sm:gap-4"
   >
     <product-detail-images
       class="sm:w-4/5"
@@ -8,7 +8,7 @@
     <div
       class="sm:w-4/5"
     >
-      test
+      <product-detail-information />
     </div>
   </div>
 </template>
@@ -19,10 +19,11 @@ import useStore from '@/store'
 import { ProductActionTypes } from '@/store/modules/product/actions'
 import { useRoute, useRouter } from 'vue-router'
 import ProductDetailImages from '@/views/product/Detail/components/Images.vue'
+import ProductDetailInformation from '@/views/product/Detail/components/Information.vue'
 
 export default defineComponent({
   name: 'ProductDetail',
-  components: { ProductDetailImages },
+  components: { ProductDetailInformation, ProductDetailImages },
   setup () {
     const store = useStore()
     const route = useRoute()
