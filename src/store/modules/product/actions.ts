@@ -41,7 +41,7 @@ export interface ProductActions {
   [ProductActionTypes.LOAD_CURRENT_PRODUCT](
     { commit }: AugmentedActionContext,
     payload: number
-  ): void
+  ): Promise<boolean>
   [ProductActionTypes.SET_CURRENT_PRODUCT](
     { commit }: AugmentedActionContext,
     payload: ProductInfo

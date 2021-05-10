@@ -52,7 +52,7 @@ export default defineComponent({
         if (dayjs(props.time).diff(now, 'hours') < 12)
           isDeadline.value = true
 
-        if (dayjs(props.time).diff(now, 'seconds') <= 0)
+        if (dayjs(props.time).diff(now, 'seconds') <= 0 && countdownInterval.value)
           clearInterval(countdownInterval.value)
       }, 1000)
     }

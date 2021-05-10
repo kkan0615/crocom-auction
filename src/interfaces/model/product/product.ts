@@ -16,6 +16,7 @@ export interface Product extends SequelizeAttributes {
 
 export interface ProductInfo extends Product {
   currentPrice: number
+  currentAttenders: number
   User: UserInfo
   Images: Array<ProductImage>
   Tags: Array<Tag>
