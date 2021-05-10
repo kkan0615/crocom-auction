@@ -9,7 +9,8 @@
     <slot />
     <t-button
       v-if="closable"
-      class="h-1"
+      class="ml-1"
+      icon
       @click="onClickCloseButton"
     >
       <t-material-icon

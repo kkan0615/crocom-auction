@@ -7,6 +7,7 @@ export interface InputTagProps {
   itemValue: string
   multiple: boolean
   closable: boolean
+  remainSearchAfterClick: boolean
 }
 
 export const inputTagProps: ComponentObjectPropsOptions<InputPropsTypeWithModelValue<Array<any>> & InputTagProps> = {
@@ -36,6 +37,11 @@ export const inputTagProps: ComponentObjectPropsOptions<InputPropsTypeWithModelV
     default: false,
   },
   closable: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  remainSearchAfterClick: {
     type: Boolean,
     required: false,
     default: false,

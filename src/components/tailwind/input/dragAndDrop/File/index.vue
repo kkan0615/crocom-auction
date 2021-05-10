@@ -1,6 +1,9 @@
 <template>
   <div
     class="h-full w-full"
+    @drop.prevent="dropToBox"
+    @dragover.prevent="dropOverBox"
+    @dragenter.prevent="dropOverBox"
   >
     <!--  input  -->
     <input
@@ -17,18 +20,16 @@
       class="h-full flex items-center justify-center ring-1"
     >
       <div
-        class="rounded-full p-2 ring-1"
+        class="p-2 rounded-full ring-1"
       >
         <t-button
           text
-          class="text-primary-500"
+          class="text-primary-500 rounded-full"
           @click="onClickAddButton"
         >
-          <slot>
-            <t-material-icon>
-              add
-            </t-material-icon>
-          </slot>
+          <t-material-icon>
+            add
+          </t-material-icon>
         </t-button>
       </div>
     </div>
@@ -36,9 +37,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, nextTick, ref, useContext } from 'vue'
 import TMaterialIcon from '@/components/tailwind/icon/Material/index.vue'
 import TButton from '@/components/tailwind/Button/index.vue'
+import { CustomFile } from '@/interfaces/system/file'
 
 export default defineComponent({
   name: 'TFileDragAndDrop',
@@ -56,7 +58,47 @@ export default defineComponent({
     },
   },
   setup () {
-    const inputRef = ref<HTMLInputElement>(null)
+    const { emit } = useContext()
+
+    const inputRef = ref<HTMLInputElement | null>(null)
+
+    const uploadFile = (files: Array<CustomFile>) => {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i]
+        const reader = new FileReader()
+        reader.onload = el => {
+          if (!el.target)
+            return
+
+          file.href = el.target.result as string
+          file.fileName = file.name
+          emit('uploaded', file)
+        }
+        reader.readAsDataURL(file)
+        reader.onerror = error => {
+          console.error(error)
+        }
+      }
+    }
+
+    const dropOverBox = (event: DragEvent) => {
+      if (!event.dataTransfer || !event.currentTarget)
+        return
+
+      event.stopPropagation()
+      event.dataTransfer.dropEffect = 'copy'
+    }
+
+    const dropToBox = (event: DragEvent) => {
+      if (!event.dataTransfer || !event.currentTarget)
+        return
+
+      event.stopPropagation()
+
+      const fileArr = Array.from(event.dataTransfer.files)
+      uploadFile(fileArr as Array<CustomFile>)
+
+    }
 
     /**
      * For click event on add button
@@ -73,16 +115,19 @@ export default defineComponent({
      */
     const onChangeInput = (event: Event) => {
       const target = event.target as HTMLInputElement
-      if (!target)
+      if (!target || !target.files)
         return
 
-      console.log(target.files)
+      const fileArr = Array.from(target.files)
+      uploadFile(fileArr as Array<CustomFile>)
     }
 
     return {
       inputRef,
       onClickAddButton,
       onChangeInput,
+      dropOverBox,
+      dropToBox,
     }
   }
 })

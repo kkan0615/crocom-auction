@@ -6,21 +6,23 @@
     <label
       v-if="label"
     >
-      <slot
-        name="label"
+
+      <div
+        class="block text-sm font-medium text-gray-700 font-bold my-1"
       >
-        <div
-          class="block text-sm font-medium text-gray-700 font-bold my-1"
+        <slot
+          name="label"
         >
           {{ label }}
-        </div>
-      </slot>
+        </slot>
+      </div>
     </label>
     <!--  input part  -->
     <div
-      class="flex items-center border-primary-500"
+      class="flex items-center input-box"
       :class="{
-        ['ring-1']: !errorStatus,
+        ['border-primary-500']: !errorStatus,
+        ['ring-1']: !noRing && !errorStatus,
         [`border-2`]: errorStatus,
         [`border-red-500`]: errorStatus,
       }"
@@ -35,19 +37,29 @@
       </div>
       <!--   input part   -->
       <div
-        class="flex-grow flex items-center input-box"
+        class="flex-grow flex items-center"
       >
         <slot />
       </div>
+      <!--   count   -->
+      <div
+        v-if="visibleCount"
+        class="flex-shrink mx-2"
+      >
+        {{ modelValue ? modelValue.toString().length : 0 }} / {{ maxCount }}
+      </div>
       <div
         v-if="clearable"
-        class="flex-shrink"
+        class="flex-shrink h-full"
       >
         <t-button
+          class="h-full"
+          color="white"
+          text-color="black"
           @click="onClickClearableButton"
         >
           <t-material-icon
-            class="ring-1 rounded-md text-sm"
+            class="rounded-md text-md"
           >
             clear
           </t-material-icon>
@@ -128,7 +140,8 @@ export default defineComponent({
 
       for (let i = 0; i < rules.length; i++) {
         const rule = rules[i]
-        const result = rule(props.modelValue as string)
+        const modelValue = props.modelValue
+        const result = rule(modelValue)
 
         if (typeof result === 'string') {
           innerErrorMessage.value = result

@@ -3,10 +3,15 @@ import { ProductMutations, ProductMutationTypes } from './mutations'
 import { ProductState } from './state'
 import { RootState } from '@/store'
 import { ProductForm, ProductInfo } from '@/interfaces/model/product/product'
+import { selectDummyProductsByFilter, selectOneDummyProductsById } from '@/dummy/model/product/product'
 
 export enum ProductActionTypes {
-  SET_PRODUCTS = 'PRODUCT_SET_PRODUCTS',
+  LOAD_PRODUCT_LIST = 'PRODUCT_LOAD_PRODUCT_LIST',
+  SET_PRODUCT_LIST = 'PRODUCT_SET_PRODUCT_LIST',
+  SET_PRODUCT_LIST_CURRENT_PAGE = 'PRODUCT_SET_PRODUCT_LIST_CURRENT_PAGE',
   SET_CURRENT_PRODUCT_FORM = 'PRODUCT_SET_CURRENT_PRODUCT_FORM',
+  LOAD_CURRENT_PRODUCT = 'PRODUCT_LOAD_CURRENT_PRODUCT',
+  SET_CURRENT_PRODUCT = 'PRODUCT_SET_CURRENT_PRODUCT',
 }
 
 export type AugmentedActionContext = {
@@ -17,21 +22,54 @@ export type AugmentedActionContext = {
 } & Omit<ActionContext<ProductState, RootState>, 'commit'>
 
 export interface ProductActions {
-  [ProductActionTypes.SET_PRODUCTS](
+  [ProductActionTypes.LOAD_PRODUCT_LIST](
     { commit }: AugmentedActionContext,
     payload: Array<ProductInfo>
+  ): void
+  [ProductActionTypes.SET_PRODUCT_LIST](
+    { commit }: AugmentedActionContext,
+    payload: Array<ProductInfo>
+  ): void
+  [ProductActionTypes.SET_PRODUCT_LIST_CURRENT_PAGE](
+    { commit }: AugmentedActionContext,
+    payload: number
   ): void
   [ProductActionTypes.SET_CURRENT_PRODUCT_FORM](
     { commit }: AugmentedActionContext,
     payload: ProductForm
   ): void
+  [ProductActionTypes.LOAD_CURRENT_PRODUCT](
+    { commit }: AugmentedActionContext,
+    payload: number
+  ): void
+  [ProductActionTypes.SET_CURRENT_PRODUCT](
+    { commit }: AugmentedActionContext,
+    payload: ProductInfo
+  ): void
 }
 
 export const productActions: ActionTree<ProductState, RootState> & ProductActions = {
-  [ProductActionTypes.SET_PRODUCTS] ({ commit }, payload) {
-    commit(ProductMutationTypes.SET_PRODUCTS, payload)
+  async [ProductActionTypes.LOAD_PRODUCT_LIST] ({ commit }) {
+    const responseProductList = await selectDummyProductsByFilter(30)
+    commit(ProductMutationTypes.SET_PRODUCT_LIST, responseProductList)
+  },
+  [ProductActionTypes.SET_PRODUCT_LIST] ({ commit }, payload) {
+    commit(ProductMutationTypes.SET_PRODUCT_LIST, payload)
+  },
+  [ProductActionTypes.SET_PRODUCT_LIST_CURRENT_PAGE] ({ commit }, payload) {
+    commit(ProductMutationTypes.SET_PRODUCT_LIST_CURRENT_PAGE, payload)
   },
   [ProductActionTypes.SET_CURRENT_PRODUCT_FORM] ({ commit }, payload) {
+    commit(ProductMutationTypes.SET_CURRENT_PRODUCT_FORM, payload)
+  },
+  async [ProductActionTypes.LOAD_CURRENT_PRODUCT] ({ commit }, payload) {
+    const responseProductData = await selectOneDummyProductsById(payload)
+    if (responseProductData)
+      commit(ProductMutationTypes.SET_CURRENT_PRODUCT, responseProductData)
+
+    return !!responseProductData
+  },
+  [ProductActionTypes.SET_CURRENT_PRODUCT] ({ commit }, payload) {
     commit(ProductMutationTypes.SET_CURRENT_PRODUCT_FORM, payload)
   },
 }

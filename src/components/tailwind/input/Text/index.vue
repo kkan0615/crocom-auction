@@ -6,6 +6,8 @@
     :height="height"
     :model-value="modelValue"
     :clearable="clearable"
+    :max-count="maxCount"
+    :visible-count="visibleCount"
     :error-message="errorMessage"
     :rules="rules"
     @click:clearableButton="onClickClearableButton"
