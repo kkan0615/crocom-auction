@@ -1,6 +1,6 @@
 <template>
   <div
-    class="whitespace-pre py-4"
+    class="whitespace-pre p-4 border"
   >
     {{ productContent }}
   </div>

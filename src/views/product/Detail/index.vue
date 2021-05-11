@@ -15,34 +15,41 @@
       </div>
     </div>
     <div class="mt-12">
-      <nav class="flex flex-col sm:flex-row">
-        <button class="text-gray-600 py-1 px-3 block hover:text-blue-500 focus:outline-none text-blue-500 border-b-2 font-medium border-blue-500">
-          Tab 1
-        </button><button class="text-gray-600 py-1 px-3 block hover:text-blue-500 focus:outline-none">
-          Tab 2
-        </button>
-      </nav>
+      <t-tabs
+        v-model:model-value="currentTab"
+      >
+        <t-tab>
+          tab 1
+        </t-tab>
+        <t-tab>
+          tab 2
+        </t-tab>
+      </t-tabs>
     </div>
     <product-detail-content />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import useStore from '@/store'
 import { ProductActionTypes } from '@/store/modules/product/actions'
 import { useRoute, useRouter } from 'vue-router'
 import ProductDetailImages from '@/views/product/Detail/components/Images.vue'
 import ProductDetailInformation from '@/views/product/Detail/components/Information.vue'
 import ProductDetailContent from '@/views/product/Detail/components/Content.vue'
+import TTabs from '@/components/tailwind/Tabs/index.vue'
+import TTab from '@/components/tailwind/Tabs/components/Tab.vue'
 
 export default defineComponent({
   name: 'ProductDetail',
-  components: { ProductDetailContent, ProductDetailInformation, ProductDetailImages },
+  components: { TTab, TTabs, ProductDetailContent, ProductDetailInformation, ProductDetailImages },
   setup () {
     const store = useStore()
     const route = useRoute()
     const router = useRouter()
+
+    const currentTab = ref(0)
 
     onMounted(async () => {
       const { id } = route.params
@@ -57,7 +64,9 @@ export default defineComponent({
         await router.push({ name: 'home' })
     })
 
-    return
+    return {
+      currentTab
+    }
   }
 })
 </script>

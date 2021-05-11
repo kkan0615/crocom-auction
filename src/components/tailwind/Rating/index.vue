@@ -7,8 +7,8 @@
         class="flex items-center"
       >
         <t-material-icon
-          class="text-gray-500"
           :class="{
+            'text-gray-500': num > rating,
             'text-yellow-500': num <= rating,
             [`w-${size}`]: true,
             [`h-${size}`]: true,
@@ -16,16 +16,7 @@
           }"
           @click="onClickStar(num)"
         >
-          <!--          <span-->
-          <!--            v-if="num <= rating"-->
-          <!--          >-->
-          star_outline
-          <!--          </span>-->
-          <!--          <span-->
-          <!--            v-else-->
-          <!--          >-->
-          <!--            star-->
-          <!--          </span>-->
+          star
         </t-material-icon>
         <slot
           name="append"

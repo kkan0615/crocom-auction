@@ -2,17 +2,19 @@
   <div
     class="flex flex-col"
   >
-    <div>
-      상품분류
+    <div
+      class="text-sm"
+    >
+      필터
     </div>
+    <t-divider
+      class="my-2"
+    />
     <div>
       <filter-label>
         별점
       </filter-label>
-      <t-rating
-        v-model:rating="test"
-        :max="5"
-      />
+      <product-list-rating-filter />
     </div>
     <div>
       <filter-label>
@@ -28,13 +30,14 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import TRating from '@/components/tailwind/Rating/index.vue'
 import FilterLabel from '@/components/typography/FilterLabel/index.vue'
 import TTextInput from '@/components/tailwind/input/Text/index.vue'
+import TDivider from '@/components/tailwind/Divider/index.vue'
+import ProductListRatingFilter from '@/views/product/List/components/RatingFilter.vue'
 
 export default defineComponent({
   name: 'NavigatorListProduct',
-  components: { TTextInput, FilterLabel, TRating },
+  components: { ProductListRatingFilter, TDivider, TTextInput, FilterLabel },
   setup () {
     const test = ref(3)
 

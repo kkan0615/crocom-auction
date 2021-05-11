@@ -1,6 +1,6 @@
 <template>
   <div
-    class="text-2xl font-bold"
+    class="text-sm font-bold"
   >
     <slot />
   </div>
