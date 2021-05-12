@@ -1,6 +1,6 @@
 <template>
   <div
-    class="sm:w-3/5 ml-auto mr-auto my-2"
+    class="sm:w-3/5 h-full ml-auto mr-auto my-2"
   >
     <div
       class="flex h-full"

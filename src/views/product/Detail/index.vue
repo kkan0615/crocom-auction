@@ -1,9 +1,9 @@
 <template>
   <div
-    class="sm:w-3/5 w-full ml-auto mr-auto"
+    class="sm:w-3/5 h-full w-full ml-auto mr-auto"
   >
     <div
-      class="sm:flex mt-4 sm:gap-4"
+      class="sm:flex h-full sm:gap-4"
     >
       <product-detail-images
         class="sm:w-3/5"
@@ -25,13 +25,15 @@
           tab 2
         </t-tab>
       </t-tabs>
+      <product-detail-content
+        class="mb-2"
+      />
     </div>
-    <product-detail-content />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, onUnmounted, ref } from 'vue'
 import useStore from '@/store'
 import { ProductActionTypes } from '@/store/modules/product/actions'
 import { useRoute, useRouter } from 'vue-router'
@@ -62,6 +64,10 @@ export default defineComponent({
           await router.push({ name: 'home' })
       } else
         await router.push({ name: 'home' })
+    })
+
+    onUnmounted(async () => {
+      await store.dispatch(ProductActionTypes.SET_CURRENT_PRODUCT, {})
     })
 
     return {

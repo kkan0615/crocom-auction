@@ -1,10 +1,9 @@
 <template>
   <div>
-    <div class="flex space-x-1 w-full">
+    <div class="flex gap-x-2 w-full">
       <div
         v-for="num in max"
         :key="num"
-        class="flex items-center"
       >
         <t-material-icon
           :class="{

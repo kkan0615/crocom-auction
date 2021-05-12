@@ -86,9 +86,17 @@
       </t-chip>
     </div>
     <t-button
+      v-if="product.buyPrice"
       block
+      @click="onClickBuyNow"
     >
-      pay
+      buy now
+    </t-button>
+    <t-button
+      block
+      @click="onClickPlaceBid"
+    >
+      place bid
     </t-button>
   </div>
 </template>
@@ -102,20 +110,31 @@ import ProductDetailCountdown from '@/views/product/Detail/components/Countdown.
 import TButton from '@/components/tailwind/Button/index.vue'
 import TChip from '@/components/tailwind/Chip/index.vue'
 import dayjs from 'dayjs'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'ProductDetailInformation',
   components: { TChip, TButton, ProductDetailCountdown, TDivider, TRating },
   setup () {
     const store = useStore()
+    const router = useRouter()
 
     const product = computed(() => store.state.product.currentProduct)
-
     const productCreateOrUpdatedAt = computed(() => dayjs(product.value.updatedAt || product.value.createdAt).format('lll'))
+
+    const onClickBuyNow = async () => {
+      console.log('onClickBuyNow')
+    }
+
+    const onClickPlaceBid = async () => {
+      await router.push({ name: 'ProductBidding', params:{ id: product.value.id } })
+    }
 
     return {
       product,
       productCreateOrUpdatedAt,
+      onClickBuyNow,
+      onClickPlaceBid,
     }
   }
 })

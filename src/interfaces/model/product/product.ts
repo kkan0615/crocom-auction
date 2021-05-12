@@ -7,6 +7,7 @@ import { ProductImage } from '@/interfaces/model/product/image'
 export interface Product extends SequelizeAttributes {
   title: string
   userId: number
+  buyPrice?: number // if wanna pay directly
   startPrice: number
   increasePrice: number
   content: string

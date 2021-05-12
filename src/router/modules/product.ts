@@ -29,6 +29,16 @@ const routes: Array<RouteRecordRaw> = [
         name: 'ProductDetail',
         component: () => import('@/views/product/Detail/index.vue')
       },
+      {
+        path: 'place-bid/id/:id',
+        name: 'ProductBidding',
+        component: () => import('@/views/product/Bidding/index.vue')
+      },
+      {
+        path: 'buy-now/id/:id',
+        name: 'ProductBuyNow',
+        component: () => import('@/views/product/Bidding/index.vue')
+      },
     ],
   },
 ]
