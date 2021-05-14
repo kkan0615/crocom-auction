@@ -13,6 +13,9 @@
       <div
         class="w-10/12 ml-2"
       >
+        <product-list-header
+          class="mb-2"
+        />
         <t-grid
           :cols="4"
           :gap="4"
@@ -41,10 +44,11 @@ import { ProductListInfo } from '@/interfaces/model/product/product'
 import { generateRandomIntNumber } from '@/utils/random'
 import ListProductPagination from '@/views/product/List/components/Pagination.vue'
 import ProductListProduct from '@/views/product/List/components/Product.vue'
+import ProductListHeader from '@/views/product/List/components/Header.vue'
 
 export default defineComponent({
   name: 'ListProduct',
-  components: { ProductListProduct, ListProductPagination, TGrid, NavigatorListProduct, },
+  components: { ProductListHeader, ProductListProduct, ListProductPagination, TGrid, NavigatorListProduct, },
   setup () {
     const store = useStore()
 

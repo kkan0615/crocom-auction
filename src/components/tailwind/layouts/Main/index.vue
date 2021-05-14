@@ -1,6 +1,6 @@
 <template>
   <div
-    class="text-sm font-bold capitalize"
+    class="sm:w-3/5 h-full ml-auto mr-auto my-2"
   >
     <slot />
   </div>
@@ -10,7 +10,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'FilterLabel',
+  name: 'MainLayoutComp',
   setup () {
     return
   }

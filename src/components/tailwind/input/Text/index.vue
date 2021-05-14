@@ -70,6 +70,7 @@ export default defineComponent({
     const onInputValue = (event: InputEvent) => {
       const target = event.target as HTMLInputElement
       emit('update:modelValue', target.value)
+      emit('input',  target.value)
       nextTick(() => {
         checkValidate()
       })
@@ -81,6 +82,7 @@ export default defineComponent({
       }
 
       emit('update:modelValue', '')
+      emit('input', '')
       nextTick(() => {
         checkValidate()
       })

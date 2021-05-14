@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="flex justify-center capitalize focus:outline-none leading-6 text-sm"
+    class="flex justify-center rounded capitalize focus:outline-none leading-6 text-sm"
     :class="buttonClasses"
     :disabled="disabled"
     :readonly="readonly"
@@ -39,7 +39,7 @@ export default defineComponent({
     shadow: {
       type: Boolean,
       required: false,
-      default: false,
+      default: true,
     },
     color: {
       type: String,

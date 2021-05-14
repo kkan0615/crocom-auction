@@ -10,34 +10,18 @@
     <t-divider
       class="my-2"
     />
-    <div>
-      <filter-label>
-        별점
-      </filter-label>
-      <product-list-rating-filter />
-    </div>
-    <div>
-      <filter-label>
-        가격
-      </filter-label>
-      <t-text-input
-        v-model="test"
-        @update:modelValue="testINput"
-      />
-    </div>
+    <price-search-list-product />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import FilterLabel from '@/components/typography/FilterLabel/index.vue'
-import TTextInput from '@/components/tailwind/input/Text/index.vue'
 import TDivider from '@/components/tailwind/Divider/index.vue'
-import ProductListRatingFilter from '@/views/product/List/components/RatingFilter.vue'
+import PriceSearchListProduct from '@/views/product/List/components/PriceSearch.vue'
 
 export default defineComponent({
   name: 'NavigatorListProduct',
-  components: { ProductListRatingFilter, TDivider, TTextInput, FilterLabel },
+  components: { PriceSearchListProduct, TDivider },
   setup () {
     const test = ref(3)
 

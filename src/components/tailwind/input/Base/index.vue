@@ -19,11 +19,9 @@
     </label>
     <!--  input part  -->
     <div
-      class="flex items-center input-box"
+      class="flex items-center input-box focus:border-primary-500"
       :class="{
-        ['border-primary-500']: !errorStatus,
-        ['ring-1']: !noRing && !errorStatus,
-        [`border-2`]: errorStatus,
+        [`border-2`]: !noRing && !errorStatus,
         [`border-red-500`]: errorStatus,
       }"
     >
