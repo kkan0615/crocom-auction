@@ -29,6 +29,7 @@ export const generateDummyProducts = () => {
 
     const startPrice = generateRandomIntNumber(1, 200)
 
+    console.log('dummyTags.filter(dummyTag => dummyTag.name.includes(\'test\'))', dummyTags.filter(dummyTag => dummyTag.name.includes('test')))
     dummyProducts.push({
       id: i + 1,
       title: faker.commerce.productName(),
@@ -47,6 +48,7 @@ export const generateDummyProducts = () => {
       ].concat(dummyProductImages.filter(dummyProductImage => dummyProductImage.productId === i + 1)),
       createdAt: dayjs(),
       currentPrice:startPrice,
+      currentAttenders: generateRandomIntNumber(0, 1000)
     } as ProductInfo)
 
     dummyProductImages.push(represntationImg)

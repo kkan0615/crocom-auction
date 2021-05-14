@@ -19,12 +19,12 @@ export const generateDummyTags = () => {
     createdAt: dayjs()
   })
   dummyTags.push({
-    id: 101,
+    id: 102,
     name: 'test2',
     createdAt: dayjs()
   })
   dummyTags.push({
-    id: 101,
+    id: 103,
     name: 'test3',
     createdAt: dayjs()
   })

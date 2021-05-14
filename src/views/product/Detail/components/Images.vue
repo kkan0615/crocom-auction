@@ -15,7 +15,7 @@
       <div
         v-for="(image, i) in productImages"
         :key="image.id"
-        class="h-1/4 w-28 cursor-pointer hover:shadow-md"
+        class="w-20 cursor-pointer hover:shadow-md"
         @click="onClickImageListItem(i)"
       >
         <t-image

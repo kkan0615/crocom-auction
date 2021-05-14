@@ -4,6 +4,7 @@ import { ProductState } from './state'
 import { RootState } from '@/store'
 import { ProductForm, ProductInfo } from '@/interfaces/model/product/product'
 import { selectDummyProductsByFilter, selectOneDummyProductsById } from '@/dummy/model/product/product'
+import { BiddingForm } from '@/interfaces/model/product/bidding'
 
 export enum ProductActionTypes {
   LOAD_PRODUCT_LIST = 'PRODUCT_LOAD_PRODUCT_LIST',
@@ -12,6 +13,7 @@ export enum ProductActionTypes {
   SET_CURRENT_PRODUCT_FORM = 'PRODUCT_SET_CURRENT_PRODUCT_FORM',
   LOAD_CURRENT_PRODUCT = 'PRODUCT_LOAD_CURRENT_PRODUCT',
   SET_CURRENT_PRODUCT = 'PRODUCT_SET_CURRENT_PRODUCT',
+  SET_CURRENT_PRODUCT_BIDDING_FORM = 'PRODUCT_SET_CURRENT_PRODUCT_BIDDING_FORM',
 }
 
 export type AugmentedActionContext = {
@@ -41,10 +43,14 @@ export interface ProductActions {
   [ProductActionTypes.LOAD_CURRENT_PRODUCT](
     { commit }: AugmentedActionContext,
     payload: number
-  ): void
+  ): Promise<boolean>
   [ProductActionTypes.SET_CURRENT_PRODUCT](
     { commit }: AugmentedActionContext,
     payload: ProductInfo
+  ): void
+  [ProductActionTypes.SET_CURRENT_PRODUCT_BIDDING_FORM](
+    { commit }: AugmentedActionContext,
+    payload: BiddingForm
   ): void
 }
 
@@ -64,6 +70,7 @@ export const productActions: ActionTree<ProductState, RootState> & ProductAction
   },
   async [ProductActionTypes.LOAD_CURRENT_PRODUCT] ({ commit }, payload) {
     const responseProductData = await selectOneDummyProductsById(payload)
+    console.log('test', responseProductData)
     if (responseProductData)
       commit(ProductMutationTypes.SET_CURRENT_PRODUCT, responseProductData)
 
@@ -71,5 +78,8 @@ export const productActions: ActionTree<ProductState, RootState> & ProductAction
   },
   [ProductActionTypes.SET_CURRENT_PRODUCT] ({ commit }, payload) {
     commit(ProductMutationTypes.SET_CURRENT_PRODUCT_FORM, payload)
+  },
+  [ProductActionTypes.SET_CURRENT_PRODUCT_BIDDING_FORM] ({ commit }, payload) {
+    commit(ProductMutationTypes.SET_CURRENT_PRODUCT_BIDDING_FORM, payload)
   },
 }

@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="flex justify-center uppercase focus:outline-none leading-6 text-sm"
+    class="flex justify-center capitalize focus:outline-none leading-6 text-sm"
     :class="buttonClasses"
     :disabled="disabled"
     :readonly="readonly"

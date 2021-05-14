@@ -1,17 +1,17 @@
 <template>
   <div
-    class="sm:w-3/5 ml-auto mr-auto flex mt-4"
+    class="sm:w-3/5 h-full ml-auto mr-auto my-2"
   >
     <div
-      class="flex"
+      class="flex h-full"
     >
       <div
-        class="w-2/12 h-full mr-2 ring"
+        class="w-2/12 h-full mr-2"
       >
         <navigator-list-product />
       </div>
       <div
-        class="w-10/12 h-full ml-2"
+        class="w-10/12 ml-2"
       >
         <t-grid
           :cols="4"
@@ -24,7 +24,7 @@
           />
         </t-grid>
         <list-product-pagination
-          class="mt-2"
+          class="mb-2"
         />
       </div>
     </div>

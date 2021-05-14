@@ -1,8 +1,6 @@
 <template>
-  <div
-    class="text-sm font-bold"
-  >
-    <slot />
+  <div>
+    Prototype
   </div>
 </template>
 
@@ -10,7 +8,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'FilterLabel',
+  name: 'TCarouselList',
   setup () {
     return
   }
